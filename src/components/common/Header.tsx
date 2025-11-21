@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, ShoppingCart } from "lucide-react";
+import { cartUtils } from "@/lib/cart";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartItemCount, setCartItemCount] = useState(0);
   const location = useLocation();
+
+  useEffect(() => {
+    // Update cart count on mount and when location changes
+    const cart = cartUtils.getCart();
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    setCartItemCount(totalItems);
+  }, [location]);
 
   const navigation = [
     { name: "Home", path: "/" },
@@ -39,9 +48,53 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
+            
+            <div className="flex items-center space-x-2 ml-4">
+              <Link
+                to="/profile"
+                className="p-3 rounded-lg hover:bg-primary-light/80 hover:shadow-md hover:scale-105 transition-all"
+                title="My Profile"
+              >
+                <User className="w-5 h-5" />
+              </Link>
+              
+              <Link
+                to="/cart"
+                className="p-3 rounded-lg hover:bg-primary-light/80 hover:shadow-md hover:scale-105 transition-all relative"
+                title="Shopping Cart"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {cartItemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-secondary text-secondary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItemCount}
+                  </span>
+                )}
+              </Link>
+            </div>
           </div>
 
           <div className="xl:hidden flex items-center space-x-2">
+            <Link
+              to="/profile"
+              className="p-2 rounded-lg hover:bg-primary-light/80 transition-all"
+              title="My Profile"
+            >
+              <User className="w-6 h-6" />
+            </Link>
+            
+            <Link
+              to="/cart"
+              className="p-2 rounded-lg hover:bg-primary-light/80 transition-all relative"
+              title="Shopping Cart"
+            >
+              <ShoppingCart className="w-6 h-6" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-secondary text-secondary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+            </Link>
+            
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-lg hover:bg-primary-light/80 transition-all"

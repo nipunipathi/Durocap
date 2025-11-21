@@ -6,6 +6,7 @@ import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
+import UserProfile from "./pages/UserProfile";
 import Orders from "./pages/Orders";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Login from "./pages/Login";
@@ -58,6 +59,12 @@ const routes: RouteConfig[] = [
     name: "Cart",
     path: "/cart",
     element: <Cart />,
+    visible: false,
+  },
+  {
+    name: "User Profile",
+    path: "/profile",
+    element: <UserProfile />,
     visible: false,
   },
   {

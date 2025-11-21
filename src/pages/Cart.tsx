@@ -69,10 +69,13 @@ export default function Cart() {
   if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-background py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold mb-4">Shopping Cart</h1>
-          <p className="text-muted-foreground mb-8">Your cart is empty</p>
-          <Button onClick={() => navigate("/products")}>Browse Products</Button>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <BackButton />
+          <div className="text-center mt-8">
+            <h1 className="text-4xl font-bold mb-4">Shopping Cart</h1>
+            <p className="text-muted-foreground mb-8">Your cart is empty</p>
+            <Button onClick={() => navigate("/products")}>Browse Products</Button>
+          </div>
         </div>
       </div>
     );
@@ -81,7 +84,8 @@ export default function Cart() {
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold mb-8">Shopping Cart</h1>
+        <BackButton />
+        <h1 className="text-4xl font-bold mb-8 mt-6">Shopping Cart</h1>
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
           <div className="xl:col-span-2 space-y-4">

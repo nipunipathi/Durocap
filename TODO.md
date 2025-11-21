@@ -1,50 +1,92 @@
-# TODO: Admin Dashboard & Navigation Updates
+# TODO: User Pages Implementation
 
-## Plan
-- [x] Step 1: Update Header - Keep only Home and Products
-- [x] Step 2: Create Back Navigation Component
-- [x] Step 3: Install Chart Library
-- [x] Step 4: Create Enhanced Admin Dashboard
-- [x] Step 5: Update Routes
-- [x] Step 6: Test & Validate
-
-## New Requirements - Admin Authentication
-- [x] Step 7: Create Admin Login System
-  - [x] Create AdminLogin page with credentials
-  - [x] Implement admin authentication context
-  - [x] Protect admin routes with authentication
-  - [x] Add logout functionality
-  - [x] Store admin session
+## New Requirements - User Features
+- [x] Step 1: Create User Profile Page
+  - [x] User information display
+  - [x] Edit profile functionality
+  - [x] Order history
   
-- [x] Step 8: Update Header
-  - [x] Remove Admin button from public header
-  - [x] Admin access only through login page
+- [x] Step 2: Update Cart Page
+  - [x] Review cart items
+  - [x] Update quantities
+  - [x] Proceed to payment
+  - [x] QR code payment option
   
-- [x] Step 9: Test Authentication
-  - [x] Verify login works
-  - [x] Verify protected routes redirect
+- [x] Step 3: Payment with QR Code
+  - [x] Display order summary in cart
+  - [x] Payment QR code display
+  - [x] Payment instructions
+  
+- [x] Step 4: Update Header Navigation
+  - [x] Add User Profile link
+  - [x] Add Cart icon with item count
+  
+- [x] Step 5: Test & Validate
+  - [x] Test user flow
   - [x] Run lint check
 
 ## Implementation Complete ✓
 
-### Admin Credentials
-- **Username:** admin
-- **Password:** admin123
-
 ### Features Implemented
-1. ✓ Simplified header with only Home and Products
-2. ✓ Back navigation button on all pages except Home
-3. ✓ Admin authentication system with login page
-4. ✓ Protected admin routes (redirect to login if not authenticated)
-5. ✓ Admin dashboard with:
-   - Sales visualization (daily and monthly charts)
-   - Statistics cards (revenue, orders, products, services)
-   - Quick access to manage products, orders, and pages
-   - Logout functionality
-6. ✓ Page content editor for Home, About, and Contact pages
-7. ✓ Session-based authentication (persists on page refresh)
 
-### Access Instructions
-- **Public Pages:** Home, Products (accessible to everyone)
-- **Admin Access:** Navigate to `/admin/login` and use the credentials above
-- **Admin Dashboard:** After login, access full admin features at `/admin`
+#### 1. User Profile Page (`/profile`)
+- **Personal Information Tab**
+  - View and edit user details (name, email, phone, address)
+  - Edit mode with save/cancel functionality
+  - Form validation and success notifications
+  
+- **Order History Tab**
+  - View all past orders
+  - Order details (ID, date, total, status, items count)
+  - Status indicators (Delivered, In Transit, Processing)
+  - View details button for each order
+
+#### 2. Enhanced Cart Page (`/cart`)
+- **Cart Management**
+  - View all cart items with images
+  - Update item quantities (increase/decrease)
+  - Remove items from cart
+  - Real-time total calculation
+  
+- **Payment Options**
+  - **Online Payment Tab**: Stripe checkout integration
+  - **QR Payment Tab**: 
+    - Display payment QR code
+    - Payment instructions
+    - Contact information for payment confirmation
+    - "I've Made the Payment" button
+
+#### 3. Header Navigation Updates
+- **Desktop View**
+  - User Profile icon (top right)
+  - Shopping Cart icon with item count badge
+  - Hover effects and smooth transitions
+  
+- **Mobile View**
+  - User Profile icon
+  - Shopping Cart icon with item count badge
+  - Responsive layout
+
+#### 4. Cart Item Counter
+- Real-time cart item count display
+- Updates automatically when items are added/removed
+- Badge notification on cart icon
+- Visible on both desktop and mobile
+
+### User Flow
+1. Browse products on Products page
+2. Add items to cart
+3. Click cart icon (shows item count)
+4. Review cart and update quantities
+5. Choose payment method:
+   - Online payment via Stripe
+   - QR code payment with instructions
+6. Access user profile to view order history
+7. Edit personal information as needed
+
+### Technical Implementation
+- Cart stored in localStorage for persistence
+- Real-time cart count updates
+- Responsive design for all screen sizes
+- Toast notifications for user feedback
+- Form validation and error handling
