@@ -9,15 +9,13 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                <span className="text-secondary-foreground font-bold text-lg">DC</span>
-              </div>
-              <div>
-                <h3 className="text-base font-bold leading-tight">DUROCAP</h3>
-                <p className="text-xs opacity-80">ROOFING SOLUTION</p>
-              </div>
-            </div>
+            <Link to="/" className="inline-block mb-4">
+              <img 
+                src="https://miaoda-conversation-file.s3cdn.medo.dev/user-7fwukq22idq8/conv-7p9lig9vkiyo/20251121/file-7paq17shhn28.png" 
+                alt="DuroCap Roofing Solutions" 
+                className="h-12 w-auto brightness-0 invert"
+              />
+            </Link>
             <p className="text-sm opacity-90 mb-2 font-medium">Shaping the future</p>
             <p className="text-sm opacity-90">
               A trusted roofing company committed to quality, durability, and innovation in roofing solutions since 2015.

@@ -42,16 +42,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <section className="bg-gradient-hero text-primary-foreground py-20 xl:py-32">
+      <section className="text-primary-foreground py-20 xl:py-32 bg-inherit bg-cover bg-center bg-no-repeat bg-[url(https://miaoda-edit-image.s3cdn.medo.dev/7p9lig9vkiyp/IMG-7pao6kiwiqrk.png)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h1 className="text-4xl xl:text-6xl font-bold mb-6 animate-fade-in">
+            <h1 className="text-4xl xl:text-6xl font-bold mb-6 animate-fade-in text-[#156479ff]">
               We are DuroCap — offering trusted, durable, and affordable roofing solutions
             </h1>
-            <p className="text-lg xl:text-xl mb-6 opacity-90 animate-fade-in">
+            <p className="text-lg xl:text-xl mb-6 opacity-90 animate-fade-in text-[#157e9a]">
               For commercial and residential projects across Kerala
             </p>
-            <div className="mb-8 space-y-2 text-base xl:text-lg opacity-95 animate-fade-in">
+            <div className="mb-8 space-y-2 text-base xl:text-lg opacity-95 animate-fade-in bg-[#156479ff] bg-none">
               <p>✓ Protecting Every Structure with Lasting Strength and Trust</p>
               <p>✓ Built Strong. Built Smart. Built by DuroCap</p>
               <p>✓ Raising Standards in Roofing, One Roof at a Time</p>
@@ -72,7 +72,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-12 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -86,7 +85,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -112,7 +110,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -140,7 +137,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -172,7 +168,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-16 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -207,7 +202,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl xl:text-4xl font-bold mb-4">Need A Free Estimate?</h2>

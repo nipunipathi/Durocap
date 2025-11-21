@@ -29,26 +29,24 @@ const Header = () => {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center">
-                <span className="text-secondary-foreground font-bold text-sm">DC</span>
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="text-base font-bold">DUROCAP</span>
-                <span className="text-xs opacity-80">ROOFING SOLUTIONS</span>
-              </div>
+            <Link to="/" className="flex items-center">
+              <img 
+                src="https://miaoda-conversation-file.s3cdn.medo.dev/user-7fwukq22idq8/conv-7p9lig9vkiyo/20251121/file-7paq17shhn28.png" 
+                alt="DuroCap Roofing Solutions" 
+                className="h-10 w-auto"
+              />
             </Link>
           </div>
 
-          <div className="hidden xl:flex items-center space-x-6">
+          <div className="hidden xl:flex items-center space-x-1">
             {navigation.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                className={`px-4 py-2 text-sm font-semibold rounded-md transition-all ${
                   location.pathname === item.path
-                    ? "bg-primary-light text-primary-foreground"
-                    : "hover:bg-primary-light/50"
+                    ? "bg-secondary text-secondary-foreground shadow-md"
+                    : "hover:bg-primary-light/70 hover:shadow-sm"
                 }`}
               >
                 {item.name}
@@ -117,17 +115,17 @@ const Header = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="xl:hidden pb-4">
-            <div className="flex flex-col space-y-2">
+          <div className="xl:hidden pb-4 border-t border-primary-light/30 mt-2">
+            <div className="flex flex-col space-y-1 pt-2">
               {navigation.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`px-3 py-2 text-sm font-medium rounded-md ${
+                  className={`px-4 py-3 text-sm font-semibold rounded-md transition-all ${
                     location.pathname === item.path
-                      ? "bg-primary-light text-primary-foreground"
-                      : "hover:bg-primary-light/50"
+                      ? "bg-secondary text-secondary-foreground shadow-md"
+                      : "hover:bg-primary-light/70"
                   }`}
                 >
                   {item.name}
@@ -136,7 +134,7 @@ const Header = () => {
               <Link
                 to="/cart"
                 onClick={() => setIsMenuOpen(false)}
-                className="px-3 py-2 text-sm font-medium rounded-md hover:bg-primary-light/50 flex items-center"
+                className="px-4 py-3 text-sm font-semibold rounded-md hover:bg-primary-light/70 flex items-center"
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Cart {cartItemCount > 0 && `(${cartItemCount})`}
@@ -146,7 +144,7 @@ const Header = () => {
                   <Link
                     to="/orders"
                     onClick={() => setIsMenuOpen(false)}
-                    className="px-3 py-2 text-sm font-medium rounded-md hover:bg-primary-light/50"
+                    className="px-4 py-3 text-sm font-semibold rounded-md hover:bg-primary-light/70"
                   >
                     My Orders
                   </Link>
@@ -154,7 +152,7 @@ const Header = () => {
                     <Link
                       to="/admin"
                       onClick={() => setIsMenuOpen(false)}
-                      className="px-3 py-2 text-sm font-medium rounded-md hover:bg-primary-light/50"
+                      className="px-4 py-3 text-sm font-semibold rounded-md hover:bg-primary-light/70"
                     >
                       Admin Dashboard
                     </Link>
@@ -164,7 +162,7 @@ const Header = () => {
                       handleSignOut();
                       setIsMenuOpen(false);
                     }}
-                    className="px-3 py-2 text-sm font-medium rounded-md hover:bg-primary-light/50 text-left"
+                    className="px-4 py-3 text-sm font-semibold rounded-md hover:bg-primary-light/70 text-left"
                   >
                     Sign Out
                   </button>
@@ -173,7 +171,7 @@ const Header = () => {
                 <Link
                   to="/login"
                   onClick={() => setIsMenuOpen(false)}
-                  className="px-3 py-2 text-sm font-medium rounded-md bg-secondary text-secondary-foreground hover:bg-secondary-light"
+                  className="px-4 py-3 text-sm font-semibold rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-md"
                 >
                   Sign In
                 </Link>
