@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { LogOut } from "lucide-react";
+import { LogOut, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 export default function AdminOrders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const { adminLogout } = useAdminAuth();
   const navigate = useNavigate();
 
@@ -36,6 +37,20 @@ export default function AdminOrders() {
       toast.error("Failed to load orders");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      const data = await api.orders.getAll();
+      setOrders(data);
+      toast.success("Orders refreshed successfully");
+    } catch (error) {
+      console.error("Error refreshing orders:", error);
+      toast.error("Failed to refresh orders");
+    } finally {
+      setRefreshing(false);
     }
   };
 
@@ -62,10 +77,20 @@ export default function AdminOrders() {
             <h1 className="text-4xl font-bold">Manage Orders</h1>
             <p className="text-muted-foreground mt-2">View and track customer orders</p>
           </div>
-          <Button variant="outline" onClick={handleLogout}>
-            <LogOut className="w-4 h-4 mr-2" />
-            Logout
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button 
+              variant="outline" 
+              onClick={handleRefresh}
+              disabled={refreshing}
+            >
+              <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+              Refresh
+            </Button>
+            <Button variant="outline" onClick={handleLogout}>
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
+          </div>
         </div>
 
         {loading ? (
