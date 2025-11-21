@@ -1,22 +1,40 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, User, ShoppingCart, LogIn } from "lucide-react";
+import { Menu, X, User, ShoppingCart, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cartUtils } from "@/lib/cart";
-import { useAuth } from "@/components/auth/useAuth";
+import { supabase } from "@/db/supabase";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-  const { user } = useAuth();
 
   useEffect(() => {
     // Update cart count on mount and when location changes
     const cart = cartUtils.getCart();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     setCartItemCount(totalItems);
+
+    // Check if user is logged in
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+
+    return () => subscription.unsubscribe();
   }, [location]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setIsLoggedIn(false);
+    window.location.href = "/";
+  };
 
   const navigation = [
     { name: "Home", path: "/" },
@@ -53,14 +71,25 @@ const Header = () => {
             ))}
             
             <div className="flex items-center space-x-2 ml-4">
-              {user ? (
-                <Link
-                  to="/profile"
-                  className="p-3 rounded-lg hover:bg-primary-light/80 hover:shadow-md hover:scale-105 transition-all"
-                  title="My Profile"
-                >
-                  <User className="w-5 h-5" />
-                </Link>
+              {isLoggedIn ? (
+                <>
+                  <Link
+                    to="/profile"
+                    className="p-3 rounded-lg hover:bg-primary-light/80 hover:shadow-md hover:scale-105 transition-all"
+                    title="My Profile"
+                  >
+                    <User className="w-5 h-5" />
+                  </Link>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleLogout}
+                    className="font-bold bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Logout
+                  </Button>
+                </>
               ) : (
                 <Link to="/login">
                   <Button variant="secondary" size="sm" className="font-bold">
@@ -86,7 +115,7 @@ const Header = () => {
           </div>
 
           <div className="xl:hidden flex items-center space-x-2">
-            {user ? (
+            {isLoggedIn ? (
               <Link
                 to="/profile"
                 className="p-2 rounded-lg hover:bg-primary-light/80 transition-all"
@@ -143,6 +172,18 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
+              {isLoggedIn && (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="px-5 py-4 text-base font-bold rounded-lg transition-all hover:bg-primary-light/80 hover:shadow-md text-left"
+                >
+                  <LogOut className="w-4 h-4 inline mr-2" />
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         )}
