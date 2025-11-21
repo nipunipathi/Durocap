@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { BarChart3, Package, ShoppingBag, FileText, LayoutDashboard } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { BarChart3, Package, ShoppingBag, FileText, LayoutDashboard, LogOut } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { api } from "@/db/api";
 import BackButton from "@/components/common/BackButton";
+import { useAdminAuth } from "@/contexts/AdminAuthContext";
 import { toast } from "sonner";
 
 export default function AdminDashboard() {
@@ -13,10 +15,18 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState<any[]>([]);
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const { adminLogout } = useAdminAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadData();
   }, []);
+
+  const handleLogout = () => {
+    adminLogout();
+    toast.success("Logged out successfully");
+    navigate("/");
+  };
 
   const loadData = async () => {
     try {
@@ -87,6 +97,10 @@ export default function AdminDashboard() {
             <h1 className="text-4xl font-bold">Admin Dashboard</h1>
             <p className="text-muted-foreground mt-2">Manage your roofing solutions business</p>
           </div>
+          <Button variant="outline" onClick={handleLogout} size="lg">
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
         </div>
 
         {/* Stats Cards */}

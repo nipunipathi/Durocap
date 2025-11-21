@@ -9,10 +9,12 @@ import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Login from "./pages/Login";
+import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminPages from "./pages/admin/AdminPages";
+import ProtectedAdminRoute from "./components/auth/ProtectedAdminRoute";
 
 interface RouteConfig {
   name: string;
@@ -77,27 +79,49 @@ const routes: RouteConfig[] = [
     visible: false,
   },
   {
+    name: "Admin Login",
+    path: "/admin/login",
+    element: <AdminLogin />,
+    visible: false,
+  },
+  {
     name: "Admin Dashboard",
     path: "/admin",
-    element: <AdminDashboard />,
+    element: (
+      <ProtectedAdminRoute>
+        <AdminDashboard />
+      </ProtectedAdminRoute>
+    ),
     visible: false,
   },
   {
     name: "Admin Products",
     path: "/admin/products",
-    element: <AdminProducts />,
+    element: (
+      <ProtectedAdminRoute>
+        <AdminProducts />
+      </ProtectedAdminRoute>
+    ),
     visible: false,
   },
   {
     name: "Admin Orders",
     path: "/admin/orders",
-    element: <AdminOrders />,
+    element: (
+      <ProtectedAdminRoute>
+        <AdminOrders />
+      </ProtectedAdminRoute>
+    ),
     visible: false,
   },
   {
     name: "Admin Pages",
     path: "/admin/pages",
-    element: <AdminPages />,
+    element: (
+      <ProtectedAdminRoute>
+        <AdminPages />
+      </ProtectedAdminRoute>
+    ),
     visible: false,
   },
 ];

@@ -39,12 +39,6 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-            
-            <Link to="/admin" className="ml-4">
-              <button className="px-5 py-3 text-base font-bold rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-lg transition-all hover:scale-105">
-                Admin
-              </button>
-            </Link>
           </div>
 
           <div className="xl:hidden flex items-center space-x-2">
@@ -74,14 +68,6 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              <div className="border-t border-primary-light/30 my-2"></div>
-              <Link
-                to="/admin"
-                onClick={() => setIsMenuOpen(false)}
-                className="px-5 py-4 text-base font-bold rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-lg transition-all"
-              >
-                Admin Dashboard
-              </Link>
             </div>
           </div>
         )}
