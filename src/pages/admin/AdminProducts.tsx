@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus, Pencil, Trash2, X, LogOut } from "lucide-react";
+import { Plus, Pencil, Trash2, X, LogOut, Upload, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -25,6 +25,7 @@ import { toast } from "sonner";
 import BackButton from "@/components/common/BackButton";
 import { useAdminAuth } from "@/contexts/AdminAuthContext";
 import { useNavigate } from "react-router-dom";
+import { uploadProductImage, validateImageFile } from "@/lib/imageUpload";
 
 const categories = [
   "Roofing Tiles & Shingles",
@@ -40,6 +41,7 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [uploading, setUploading] = useState(false);
   const { adminLogout } = useAdminAuth();
   const navigate = useNavigate();
 
@@ -157,6 +159,37 @@ export default function AdminProducts() {
     } catch (error) {
       console.error("Error deleting product:", error);
       toast.error("Failed to delete product");
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file
+    const validation = validateImageFile(file);
+    if (!validation.valid) {
+      toast.error(validation.error || "Invalid file");
+      e.target.value = ""; // Reset input
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const result = await uploadProductImage(file);
+      
+      if (result.success && result.url) {
+        setFormData({ ...formData, image_url: result.url });
+        toast.success("Image uploaded successfully");
+      } else {
+        toast.error(result.error || "Failed to upload image");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image");
+    } finally {
+      setUploading(false);
+      e.target.value = ""; // Reset input
     }
   };
 
@@ -329,26 +362,75 @@ export default function AdminProducts() {
               </div>
 
               <div>
-                <Label htmlFor="image_url">Image URL</Label>
-                <Input
-                  id="image_url"
-                  type="url"
-                  value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
-                />
-                {formData.image_url && (
-                  <div className="mt-2">
-                    <img
-                      src={formData.image_url}
-                      alt="Preview"
-                      className="w-32 h-32 object-cover rounded"
-                      onError={(e) => {
-                        e.currentTarget.src = "https://via.placeholder.com/128";
-                      }}
+                <Label htmlFor="image_url">Product Image</Label>
+                <div className="space-y-3">
+                  {/* File Upload Button */}
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="file"
+                      id="image-upload"
+                      accept="image/jpeg,image/png,image/webp,image/gif"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                      disabled={uploading}
                     />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => document.getElementById("image-upload")?.click()}
+                      disabled={uploading}
+                      className="w-full"
+                    >
+                      {uploading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Uploading...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="w-4 h-4 mr-2" />
+                          Upload Image
+                        </>
+                      )}
+                    </Button>
                   </div>
-                )}
+
+                  {/* Or divider */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 border-t border-border"></div>
+                    <span className="text-sm text-muted-foreground">OR</span>
+                    <div className="flex-1 border-t border-border"></div>
+                  </div>
+
+                  {/* Image URL Input */}
+                  <Input
+                    id="image_url"
+                    type="url"
+                    value={formData.image_url}
+                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                    placeholder="https://example.com/image.jpg"
+                  />
+
+                  {/* Image Preview */}
+                  {formData.image_url && (
+                    <div className="mt-3">
+                      <p className="text-sm text-muted-foreground mb-2">Preview:</p>
+                      <img
+                        src={formData.image_url}
+                        alt="Preview"
+                        className="w-full max-w-xs h-48 object-cover rounded-lg border"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://via.placeholder.com/400x300?text=Invalid+Image";
+                        }}
+                      />
+                    </div>
+                  )}
+
+                  {/* Upload Instructions */}
+                  <p className="text-xs text-muted-foreground">
+                    Upload an image file (max 5MB) or enter an image URL. Supported formats: JPEG, PNG, WebP, GIF.
+                  </p>
+                </div>
               </div>
 
               <DialogFooter>

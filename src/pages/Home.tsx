@@ -42,18 +42,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <section className="text-primary-foreground py-20 xl:py-32 bg-inherit bg-cover bg-center bg-no-repeat bg-[url(https://miaoda-edit-image.s3cdn.medo.dev/7p9lig9vkiyp/IMG-7pao6kiwiqrk.png)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="text-primary-foreground py-20 xl:py-32 bg-cover bg-center bg-no-repeat bg-[#16657a] bg-none">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-none border-[#ffffffff] border-[0px] border-none border-[transparent]">
           <div className="max-w-3xl">
-            <h1 className="text-4xl xl:text-6xl font-bold mb-6 animate-fade-in text-[#156479ff]">
-              We are DuroCap — offering trusted, durable, and affordable roofing solutions
-            </h1>
-            <p className="text-lg xl:text-xl mb-6 opacity-90 animate-fade-in text-[#157e9a]">
+            <h1 className="xl:text-6xl font-bold mb-6 animate-fade-in text-[#ffffffff] text-[36px]">We are DuroCap — offering trusted, durable, and affordable roofing solutions</h1>
+            <p className="text-lg xl:text-xl mb-6 opacity-90 animate-fade-in text-[#ffffffff]">
               For commercial and residential projects across Kerala
             </p>
-            <div className="mb-8 space-y-2 text-base xl:text-lg opacity-95 animate-fade-in bg-[#156479ff] bg-none">
+            <div className="mb-8 space-y-2 text-base xl:text-lg opacity-95 animate-fade-in bg-[transparent] bg-none">
               <p>✓ Protecting Every Structure with Lasting Strength and Trust</p>
-              <p>✓ Built Strong. Built Smart. Built by DuroCap</p>
+              <p className="text-[#ffffffff]">✓ Built Strong. Built Smart. Built by DuroCap</p>
               <p>✓ Raising Standards in Roofing, One Roof at a Time</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-in">
