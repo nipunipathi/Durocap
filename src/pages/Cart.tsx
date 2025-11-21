@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Trash2, Plus, Minus } from "lucide-react";
+import { Trash2, Plus, Minus, QrCode, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cartUtils } from "@/lib/cart";
 import type { CartItem } from "@/types";
 import { api } from "@/db/api";
@@ -132,9 +133,11 @@ export default function Cart() {
 
           <div>
             <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-                <div className="space-y-2 mb-4">
+              <CardHeader>
+                <CardTitle>Order Summary</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Subtotal</span>
                     <span className="font-medium">${total.toFixed(2)}</span>
@@ -144,22 +147,79 @@ export default function Cart() {
                     <span className="font-medium">Calculated at checkout</span>
                   </div>
                 </div>
-                <div className="border-t pt-4 mb-6">
+                <div className="border-t pt-4">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
                     <span>${total.toFixed(2)}</span>
                   </div>
                 </div>
-                <Button
-                  onClick={handleCheckout}
-                  disabled={loading}
-                  className="w-full"
-                  size="lg"
-                >
-                  {loading ? "Processing..." : "Proceed to Checkout"}
-                </Button>
+
+                <Tabs defaultValue="online" className="w-full">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="online" className="flex items-center gap-2">
+                      <CreditCard className="w-4 h-4" />
+                      Online Payment
+                    </TabsTrigger>
+                    <TabsTrigger value="qr" className="flex items-center gap-2">
+                      <QrCode className="w-4 h-4" />
+                      QR Payment
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent value="online" className="space-y-4">
+                    <p className="text-sm text-muted-foreground">
+                      Pay securely with credit card, debit card, or other payment methods via Stripe.
+                    </p>
+                    <Button
+                      onClick={handleCheckout}
+                      disabled={loading}
+                      className="w-full"
+                      size="lg"
+                    >
+                      {loading ? "Processing..." : "Proceed to Checkout"}
+                    </Button>
+                  </TabsContent>
+
+                  <TabsContent value="qr" className="space-y-4">
+                    <div className="bg-muted/30 rounded-lg p-4 text-center">
+                      <div className="bg-white p-4 rounded-lg inline-block mb-3">
+                        <img
+                          src="https://miaoda-site-img.s3cdn.medo.dev/images/payment-qr-placeholder.png"
+                          alt="Payment QR Code"
+                          className="w-48 h-48 mx-auto"
+                          onError={(e) => {
+                            e.currentTarget.src = "https://via.placeholder.com/192x192?text=QR+Code";
+                          }}
+                        />
+                      </div>
+                      <p className="text-sm font-semibold mb-2">Scan to Pay</p>
+                      <p className="text-xs text-muted-foreground mb-3">
+                        Scan this QR code with your UPI app or payment app to complete the payment
+                      </p>
+                      <div className="bg-background border rounded-lg p-3 text-left space-y-2">
+                        <p className="text-xs font-semibold">After Payment:</p>
+                        <ol className="text-xs text-muted-foreground space-y-1 list-decimal list-inside">
+                          <li>Take a screenshot of payment confirmation</li>
+                          <li>Contact us at <a href="tel:08593852223" className="text-primary hover:underline">085938 52223</a></li>
+                          <li>Share your order details and payment proof</li>
+                        </ol>
+                      </div>
+                    </div>
+                    <Button
+                      onClick={() => {
+                        toast.success("Please complete payment via QR code and contact us with payment proof");
+                      }}
+                      variant="secondary"
+                      className="w-full"
+                      size="lg"
+                    >
+                      I've Made the Payment
+                    </Button>
+                  </TabsContent>
+                </Tabs>
+
                 {!user && (
-                  <p className="text-sm text-muted-foreground text-center mt-4">
+                  <p className="text-sm text-muted-foreground text-center">
                     You can checkout as a guest or{" "}
                     <button
                       onClick={() => navigate("/login")}
