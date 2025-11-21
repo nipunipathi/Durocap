@@ -33,12 +33,17 @@ export default function AdminDashboard() {
 
   const loadData = async () => {
     try {
+      console.log("Loading dashboard data...");
       const [ordersData, productsData, servicesData, inquiriesData] = await Promise.all([
         api.orders.getAll(),
         api.products.getAll(),
         api.services.getAll(),
         api.contactInquiries.getAll(),
       ]);
+      console.log("Orders loaded:", ordersData.length, ordersData);
+      console.log("Products loaded:", productsData.length);
+      console.log("Services loaded:", servicesData.length);
+      console.log("Inquiries loaded:", inquiriesData.length);
       setOrders(ordersData);
       setProducts(productsData);
       setServices(servicesData);
