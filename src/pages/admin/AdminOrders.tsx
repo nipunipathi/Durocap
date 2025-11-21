@@ -1,25 +1,31 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import { LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { api } from "@/db/api";
 import type { Order } from "@/types";
 import { toast } from "sonner";
-import { useAuth } from "@/components/auth/useAuth";
-import { Navigate } from "react-router-dom";
+import BackButton from "@/components/common/BackButton";
+import { useAdminAuth } from "@/contexts/AdminAuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
-  const { profile } = useAuth();
-
-  if (profile?.role !== "admin") {
-    return <Navigate to="/" replace />;
-  }
+  const { adminLogout } = useAdminAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchOrders();
   }, []);
+
+  const handleLogout = () => {
+    adminLogout();
+    toast.success("Logged out successfully");
+    navigate("/");
+  };
 
   const fetchOrders = async () => {
     try {
@@ -49,12 +55,30 @@ export default function AdminOrders() {
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold mb-8">Manage Orders</h1>
+        <BackButton />
+        
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-4xl font-bold">Manage Orders</h1>
+            <p className="text-muted-foreground mt-2">View and track customer orders</p>
+          </div>
+          <Button variant="outline" onClick={handleLogout}>
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
+        </div>
 
         {loading ? (
-          <div className="text-center py-12">Loading orders...</div>
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <p className="mt-4 text-muted-foreground">Loading orders...</p>
+          </div>
         ) : orders.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">No orders found</div>
+          <Card>
+            <CardContent className="p-12 text-center">
+              <p className="text-muted-foreground">No orders found</p>
+            </CardContent>
+          </Card>
         ) : (
           <div className="space-y-6">
             {orders.map((order) => (

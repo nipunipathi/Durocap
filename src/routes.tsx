@@ -14,6 +14,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminOrders from "./pages/admin/AdminOrders";
+import AdminClients from "./pages/admin/AdminClients";
 import AdminPages from "./pages/admin/AdminPages";
 import ProtectedAdminRoute from "./components/auth/ProtectedAdminRoute";
 
@@ -117,6 +118,16 @@ const routes: RouteConfig[] = [
     element: (
       <ProtectedAdminRoute>
         <AdminOrders />
+      </ProtectedAdminRoute>
+    ),
+    visible: false,
+  },
+  {
+    name: "Admin Clients",
+    path: "/admin/clients",
+    element: (
+      <ProtectedAdminRoute>
+        <AdminClients />
       </ProtectedAdminRoute>
     ),
     visible: false,
