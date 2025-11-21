@@ -1,6 +1,7 @@
 import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import type { Product } from "@/types";
 
 interface ProductCardProps {
@@ -9,6 +10,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+  const { formatPrice } = useCurrency();
+
   return (
     <Card className="overflow-hidden hover:shadow-hover transition-shadow duration-300">
       <div className="aspect-square overflow-hidden bg-muted">
@@ -25,7 +28,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
         </p>
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-primary">
-            ${product.price.toFixed(2)}
+            {formatPrice(product.price)}
           </span>
           <span className="text-sm text-muted-foreground">
             Stock: {product.stock}

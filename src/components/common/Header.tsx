@@ -4,6 +4,7 @@ import { Menu, X, User, ShoppingCart, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cartUtils } from "@/lib/cart";
 import { supabase } from "@/db/supabase";
+import CurrencySwitcher from "@/components/common/CurrencySwitcher";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,6 +76,8 @@ const Header = () => {
             ))}
             
             <div className="flex items-center space-x-2 ml-4">
+              <CurrencySwitcher />
+              
               {isLoggedIn ? (
                 <>
                   <Link
@@ -162,6 +165,9 @@ const Header = () => {
         {isMenuOpen && (
           <div className="xl:hidden pb-4 border-t-2 border-secondary/30 mt-2">
             <div className="flex flex-col space-y-2 pt-3">
+              <div className="px-5 py-2">
+                <CurrencySwitcher />
+              </div>
               {navigation.map((item) => (
                 <Link
                   key={item.path}

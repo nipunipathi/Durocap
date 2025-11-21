@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cartUtils } from "@/lib/cart";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import type { CartItem } from "@/types";
 import { api } from "@/db/api";
 import { toast } from "sonner";
@@ -16,6 +17,7 @@ export default function Cart() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user, session } = useAuth();
+  const { formatPrice } = useCurrency();
 
   useEffect(() => {
     setCart(cartUtils.getCart());
@@ -101,7 +103,7 @@ export default function Cart() {
                     <div className="flex-1">
                       <h3 className="font-semibold text-lg">{item.name}</h3>
                       <p className="text-muted-foreground text-sm">{item.category}</p>
-                      <p className="text-primary font-bold mt-1">${item.price.toFixed(2)}</p>
+                      <p className="text-primary font-bold mt-1">{formatPrice(item.price)}</p>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Button
@@ -145,7 +147,7 @@ export default function Cart() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-medium">${total.toFixed(2)}</span>
+                    <span className="font-medium">{formatPrice(total)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Shipping</span>
@@ -155,7 +157,7 @@ export default function Cart() {
                 <div className="border-t pt-4">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>{formatPrice(total)}</span>
                   </div>
                 </div>
 
