@@ -38,7 +38,11 @@ const Header = () => {
 
   const navigation = [
     { name: "Home", path: "/" },
+    { name: "About Us", path: "/about" },
     { name: "Products", path: "/products" },
+    { name: "Services", path: "/services" },
+    { name: "Projects", path: "/projects" },
+    { name: "Contact Us", path: "/contact" },
   ];
 
   return (
