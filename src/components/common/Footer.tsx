@@ -9,29 +9,38 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">About Us</h3>
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
+                <span className="text-secondary-foreground font-bold text-lg">DC</span>
+              </div>
+              <div>
+                <h3 className="text-base font-bold leading-tight">DUROCAP</h3>
+                <p className="text-xs opacity-80">ROOFING SOLUTION</p>
+              </div>
+            </div>
+            <p className="text-sm opacity-90 mb-2 font-medium">Shaping the future</p>
             <p className="text-sm opacity-90">
-              Roofing Solutions Hub provides professional roofing products and services for residential and commercial properties. Quality and customer satisfaction are our top priorities.
+              A trusted roofing company committed to quality, durability, and innovation in roofing solutions since 2015.
             </p>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <div className="space-y-2">
-              <Link to="/products" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
-                Products
-              </Link>
-              <Link to="/services" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
-                Services
-              </Link>
-              <Link to="/projects" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
-                Projects
+              <Link to="/" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                Home
               </Link>
               <Link to="/about" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
                 About Us
               </Link>
+              <Link to="/projects" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                Project Gallery
+              </Link>
+              <Link to="/services" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                Services
+              </Link>
               <Link to="/contact" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
-                Contact
+                Contact Us
               </Link>
             </div>
           </div>
@@ -41,32 +50,31 @@ const Footer = () => {
             <div className="space-y-3 text-sm opacity-90">
               <div className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>123 Roofing Street, Austin, TX 78701</span>
+                <span>Near IOC Gas Plant, Kolayil parippally.p.o, kollam, Kerala 691574</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <a href="tel:08593852223" className="flex items-center space-x-2 hover:opacity-100 transition-opacity">
                 <Phone className="w-4 h-4 flex-shrink-0" />
-                <span>(512) 555-0123</span>
-              </div>
-              <div className="flex items-center space-x-2">
+                <span>085938 52223</span>
+              </a>
+              <a href="mailto:info@durocap.com" className="flex items-center space-x-2 hover:opacity-100 transition-opacity">
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                <span>info@roofingsolutions.com</span>
-              </div>
+                <span>info@durocap.com</span>
+              </a>
             </div>
           </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Business Hours</h3>
             <div className="space-y-2 text-sm opacity-90">
-              <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-              <p>Saturday: 9:00 AM - 4:00 PM</p>
+              <p>Mon-Fri: 9:00 AM - 6:00 PM</p>
+              <p>Saturday: Closed</p>
               <p>Sunday: Closed</p>
-              <p className="mt-4 text-xs">Emergency services available 24/7</p>
             </div>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-primary-light/30 text-center text-sm opacity-90">
-          <p>2025 Roofing Solutions Hub</p>
+          <p>© {currentYear} Durocap Roofing Solution</p>
         </div>
       </div>
     </footer>

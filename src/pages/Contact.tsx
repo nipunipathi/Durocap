@@ -59,9 +59,9 @@ export default function Contact() {
     <div className="min-h-screen bg-background">
       <section className="bg-primary text-primary-foreground py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl xl:text-5xl font-bold mb-4">Contact Us</h1>
+          <h1 className="text-4xl xl:text-5xl font-bold mb-4">Contact DuroCap</h1>
           <p className="text-lg opacity-90">
-            Get in touch with our team for any inquiries or quotes
+            Get in touch with our team for roofing solutions across Kerala
           </p>
         </div>
       </section>
@@ -73,20 +73,23 @@ export default function Contact() {
               {
                 icon: Phone,
                 title: "Phone",
-                content: "(512) 555-0123",
-                desc: "Mon-Fri 8AM-6PM, Sat 9AM-4PM",
+                content: "085938 52223",
+                desc: "Mon-Fri: 9:00 AM - 6:00 PM",
+                link: "tel:08593852223",
               },
               {
                 icon: Mail,
                 title: "Email",
-                content: "info@roofingsolutions.com",
+                content: "info@durocap.com",
                 desc: "We'll respond within 24 hours",
+                link: "mailto:info@durocap.com",
               },
               {
                 icon: MapPin,
                 title: "Address",
-                content: "123 Roofing Street",
-                desc: "Austin, TX 78701",
+                content: "Near IOC Gas Plant, Kolayil",
+                desc: "Parippally P.O, Kollam, Kerala 691574",
+                link: null,
               },
             ].map((item, idx) => (
               <Card key={idx}>
@@ -97,7 +100,13 @@ export default function Contact() {
                   <CardTitle>{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="font-semibold mb-1">{item.content}</p>
+                  {item.link ? (
+                    <a href={item.link} className="font-semibold mb-1 hover:text-secondary transition-colors block">
+                      {item.content}
+                    </a>
+                  ) : (
+                    <p className="font-semibold mb-1">{item.content}</p>
+                  )}
                   <p className="text-sm text-muted-foreground">{item.desc}</p>
                 </CardContent>
               </Card>
