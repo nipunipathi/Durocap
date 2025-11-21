@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import BackButton from "@/components/common/BackButton";
 import { ServiceCard } from "@/components/cards/ServiceCard";
 import { api } from "@/db/api";
 import type { Service } from "@/types";
@@ -27,6 +28,7 @@ export default function Services() {
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BackButton />
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4">Our Services</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">

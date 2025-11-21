@@ -5,6 +5,7 @@ import type { Product } from "@/types";
 import { cartUtils } from "@/lib/cart";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import BackButton from "@/components/common/BackButton";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -44,6 +45,7 @@ export default function Products() {
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BackButton />
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">Our Products</h1>
           <p className="text-muted-foreground mb-6">

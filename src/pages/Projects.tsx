@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import BackButton from "@/components/common/BackButton";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { api } from "@/db/api";
 import type { Project } from "@/types";
@@ -27,6 +28,7 @@ export default function Projects() {
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BackButton />
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4">Our Projects</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">

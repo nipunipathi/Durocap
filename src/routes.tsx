@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminOrders from "./pages/admin/AdminOrders";
+import AdminPages from "./pages/admin/AdminPages";
 
 interface RouteConfig {
   name: string;
@@ -91,6 +92,12 @@ const routes: RouteConfig[] = [
     name: "Admin Orders",
     path: "/admin/orders",
     element: <AdminOrders />,
+    visible: false,
+  },
+  {
+    name: "Admin Pages",
+    path: "/admin/pages",
+    element: <AdminPages />,
     visible: false,
   },
 ];

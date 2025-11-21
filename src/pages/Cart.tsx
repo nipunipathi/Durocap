@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import BackButton from "@/components/common/BackButton";
 import { useNavigate } from "react-router-dom";
 import { Trash2, Plus, Minus, QrCode, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";

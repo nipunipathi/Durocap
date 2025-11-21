@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BackButton from "@/components/common/BackButton";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -68,6 +69,7 @@ export default function Contact() {
 
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BackButton />
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-12">
             {[
               {
