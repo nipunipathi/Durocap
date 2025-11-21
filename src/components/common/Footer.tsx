@@ -1,67 +1,72 @@
-import React from "react";
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin } from "lucide-react";
 
-const Footer: React.FC = () => {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-r from-amber-50 to-orange-50 border-t border-amber-200">
-      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* ================= About Us ================= */}
+    <footer className="bg-primary text-primary-foreground">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            {/* Title: Change to your project's "About Us" */}
-            <h3 className="text-lg font-semibold text-amber-800 mb-4">
-              {/* About Us */}
-            </h3>
-            <p className="text-gray-600">
-              {/* Fill in your "About Us" introduction here, for example: Committed to xxx, making xxx more xxx */}
+            <h3 className="text-lg font-semibold mb-4">About Us</h3>
+            <p className="text-sm opacity-90">
+              Roofing Solutions Hub provides professional roofing products and services for residential and commercial properties. Quality and customer satisfaction are our top priorities.
             </p>
           </div>
 
-          {/* ================= Contact Information ================= */}
           <div>
-            {/* Title: Contact Information */}
-            <h3 className="text-lg font-semibold text-amber-800 mb-4">
-              {/* Contact Information */}
-            </h3>
-            <div className="text-gray-600 space-y-2">
-              <p>
-                {/* Address: XXX Street, XXX District, XXX City, XXX Province */}
-              </p>
-              <p>
-                {/* Phone: 010-XXXXXXX */}
-              </p>
-              <p>
-                {/* Email: info@example.com */}
-              </p>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <div className="space-y-2">
+              <Link to="/products" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                Products
+              </Link>
+              <Link to="/services" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                Services
+              </Link>
+              <Link to="/projects" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                Projects
+              </Link>
+              <Link to="/about" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                About Us
+              </Link>
+              <Link to="/contact" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                Contact
+              </Link>
             </div>
           </div>
 
-          {/* ================= Business Hours / Other Information / Can be deleted ================= */}
           <div>
-            {/* Title: Can be changed to "Business Hours" or "Service Hours" */}
-            <h3 className="text-lg font-semibold text-amber-800 mb-4">
-              {/* Business Hours */}
-            </h3>
-            <div className="text-gray-600 space-y-2">
-              <p>
-                {/* Monday to Friday: 9:00-18:00 */}
-              </p>
-              <p>
-                {/* Please check announcements for weekends and public holidays */}
-              </p>
-              <p>
-                {/* Other notes, such as "Advance booking required" */}
-              </p>
+            <h3 className="text-lg font-semibold mb-4">Contact Information</h3>
+            <div className="space-y-3 text-sm opacity-90">
+              <div className="flex items-start space-x-2">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span>123 Roofing Street, Austin, TX 78701</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Phone className="w-4 h-4 flex-shrink-0" />
+                <span>(512) 555-0123</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Mail className="w-4 h-4 flex-shrink-0" />
+                <span>info@roofingsolutions.com</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Business Hours</h3>
+            <div className="space-y-2 text-sm opacity-90">
+              <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+              <p>Saturday: 9:00 AM - 4:00 PM</p>
+              <p>Sunday: Closed</p>
+              <p className="mt-4 text-xs">Emergency services available 24/7</p>
             </div>
           </div>
         </div>
 
-        {/* ================= Copyright Section ================= */}
-        <div className="mt-8 pt-8 border-t border-amber-200 text-center text-gray-600">
-          <p>
-            {/* © {currentYear} Your Company or Organization Name */}
-          </p>
+        <div className="mt-8 pt-8 border-t border-primary-light/30 text-center text-sm opacity-90">
+          <p>2025 Roofing Solutions Hub</p>
         </div>
       </div>
     </footer>
