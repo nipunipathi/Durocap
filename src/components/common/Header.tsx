@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, User, ShoppingCart } from "lucide-react";
+import { Menu, X, User, ShoppingCart, LogIn } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cartUtils } from "@/lib/cart";
+import { useAuth } from "@/components/auth/useAuth";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     // Update cart count on mount and when location changes
@@ -50,13 +53,22 @@ const Header = () => {
             ))}
             
             <div className="flex items-center space-x-2 ml-4">
-              <Link
-                to="/profile"
-                className="p-3 rounded-lg hover:bg-primary-light/80 hover:shadow-md hover:scale-105 transition-all"
-                title="My Profile"
-              >
-                <User className="w-5 h-5" />
-              </Link>
+              {user ? (
+                <Link
+                  to="/profile"
+                  className="p-3 rounded-lg hover:bg-primary-light/80 hover:shadow-md hover:scale-105 transition-all"
+                  title="My Profile"
+                >
+                  <User className="w-5 h-5" />
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <Button variant="secondary" size="sm" className="font-bold">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Sign In
+                  </Button>
+                </Link>
+              )}
               
               <Link
                 to="/cart"
@@ -74,13 +86,23 @@ const Header = () => {
           </div>
 
           <div className="xl:hidden flex items-center space-x-2">
-            <Link
-              to="/profile"
-              className="p-2 rounded-lg hover:bg-primary-light/80 transition-all"
-              title="My Profile"
-            >
-              <User className="w-6 h-6" />
-            </Link>
+            {user ? (
+              <Link
+                to="/profile"
+                className="p-2 rounded-lg hover:bg-primary-light/80 transition-all"
+                title="My Profile"
+              >
+                <User className="w-6 h-6" />
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="p-2 rounded-lg hover:bg-primary-light/80 transition-all"
+                title="Sign In"
+              >
+                <LogIn className="w-6 h-6" />
+              </Link>
+            )}
             
             <Link
               to="/cart"

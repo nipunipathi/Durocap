@@ -40,6 +40,9 @@ const Footer = () => {
               <Link to="/contact" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
                 Contact Us
               </Link>
+              <Link to="/admin/login" className="block text-sm opacity-90 hover:opacity-100 transition-opacity">
+                Admin Login
+              </Link>
             </div>
           </div>
 

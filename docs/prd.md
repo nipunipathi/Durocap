@@ -14,8 +14,11 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Services
 - Projects
 - Contact Us
+- User Login Page
 - User Page (User Profile + Cart + Payment)
-- Admin Dashboard\n\n## 2. Core Features
+- Admin Login Page
+- Admin Dashboard
+\n## 2. Core Features
 
 ### 2.1 Customer-Facing Features
 - Product browsing and search functionality
@@ -23,24 +26,38 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Secure payment integration for online transactions
 - Service inquiry and booking\n- Project portfolio showcase with interactive image gallery
 - Contact form for customer inquiries
-- User profile management
+- User registration and login\n- User profile management
 - Cart management and checkout\n- QR code payment processing
 
-### 2.2 User Page Features
+### 2.2 User Login Page
+- **Login Form**: Email/username and password input fields
+- **Remember Me**: Checkbox option to save login credentials
+- **Forgot Password**: Link to password recovery process
+- **Sign Up Link**: Redirect to user registration page for new customers
+- **Social Login Options**: Quick login via Google or Facebook accounts
+- **Security**: Input validation and encrypted password transmission
+
+### 2.3 User Page Features
 - **User Profile Section**: Display and edit user information including name, email, phone number, shipping address, and order history
 - **Cart Section**: View cart items, adjust quantities, remove items, view subtotal and total amounts
 - **Payment Section**: Complete checkout with QR code payment option for secure transactions
-\n### 2.3 Admin Dashboard\n- **Product Management**: Add, edit, delete, and update product listings with image upload and category assignment
+\n### 2.4 Admin Login Page
+- **Login Form**: Admin username and password input fields
+- **Two-Factor Authentication**: Optional security code verification for enhanced security
+- **Forgot Password**: Link to admin password recovery process
+- **Session Timeout**: Automatic logout after period of inactivity
+- **Security**: Encrypted credentials and IP address logging for security monitoring
+
+### 2.5 Admin Dashboard\n- **Product Management**: Add, edit, delete, and update product listings with image upload and category assignment
 - **Service Management**: Add, edit, delete, and modify service offerings and descriptions
-- **Order History Management**: View complete order history with filtering options by date, status, and customer
-- **Client Management**: View and manage customer information, track customer orders, and communication history
+- **Order History Management**: View complete order history with filtering options by date, status, and customer\n- **Client Management**: View and manage customer information, track customer orders, and communication history
 - **Business Growth Analytics**: Interactive dashboard displaying business growth metrics through visual graphs and charts, including:\n  - Revenue trends over time (line/bar charts)
   - Order volume statistics (monthly/quarterly comparisons)
   - Product category performance analysis
   - Customer acquisition trends
 - **Project Portfolio Management**: Add, edit, and delete project showcase images and descriptions
 - **Customer Inquiry Management**: Review and respond to customer inquiries from contact forms
-\n### 2.4 Projects Section Enhancement
+\n### 2.6 Projects Section Enhancement
 - Display '100+ Successful Projects' headline with prominent visibility
 - Interactive image gallery showcasing completed roofing projects
 - Hover effects on project images: zoom-in animation (1.1x scale) with smooth transition
@@ -60,8 +77,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Primary color: Deep teal blue (#2C5F7C) representing professionalism and trust
 - Secondary color: Bright cyan (#7DD3E8) for modern appeal and interactive elements
 - Accent color: Clean white (#FFFFFF) for contrast and clarity
-- Reference image: Screenshot 2025-11-21 085459.png
-
+- Reference image: Screenshot 2025-11-21 085459.png\n
 ### 4.2 Visual Details
 - Smooth rounded corners (8px radius) for modern card-based layouts
 - Subtle shadow effects (04px 12px rgba(0,0,0,0.1)) for depth and hierarchy
@@ -69,6 +85,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Smooth page transitions and scroll animations
 - Icon style: Line-based minimalist icons for navigation and features
 - Logo integration: MainLogo.png displayed in header navigation
+- Login pages feature centered form cards with soft shadows and clean input fields
 
 ### 4.3 Layout Approach
 - Grid-based product display with responsive card layouts
@@ -78,3 +95,4 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Visual hierarchy emphasizing product images and key information
 - User page organized in tabbed or sectioned layout: Profile, Cart, and Payment sections clearly separated
 - Admin dashboard with sidebar navigation and main content area featuring data visualization charts and management tables
+- Login pages with centered vertical layout, form card positioned in middle of viewport with background image or gradient
