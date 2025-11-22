@@ -37,7 +37,22 @@ export default function Services() {
         </div>
 
         {loading ? (
-          <div className="text-center py-12">Loading services...</div>
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <p className="mt-4 text-muted-foreground">Loading services...</p>
+          </div>
+        ) : services.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="max-w-md mx-auto">
+              <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-4xl">🔧</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">No Services Yet</h3>
+              <p className="text-muted-foreground">
+                Services will appear here once they are added through the admin panel.
+              </p>
+            </div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {services.map((service) => (
