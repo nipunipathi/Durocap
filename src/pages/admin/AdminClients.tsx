@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Mail, Phone, MapPin, ShoppingBag, LogOut } from "lucide-react";
+import { Mail, User as UserIcon, Calendar, Shield, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,84 +9,84 @@ import { toast } from "sonner";
 import BackButton from "@/components/common/BackButton";
 import { useAdminAuth } from "@/contexts/AdminAuthContext";
 import { useNavigate } from "react-router-dom";
+import type { Profile } from "@/types";
 
-interface Client {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-  address?: string;
-  totalOrders: number;
-  totalSpent: number;
-  lastOrderDate?: string;
+interface UserProfile extends Profile {
+  orderCount?: number;
+  totalSpent?: number;
 }
 
 export default function AdminClients() {
-  const [clients, setClients] = useState<Client[]>([]);
-  const [filteredClients, setFilteredClients] = useState<Client[]>([]);
+  const [users, setUsers] = useState<UserProfile[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const { adminLogout } = useAdminAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchClients();
+    fetchUsers();
   }, []);
 
   useEffect(() => {
     if (searchTerm) {
-      const filtered = clients.filter(
-        (client) =>
-          client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          client.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          client.phone?.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = users.filter(
+        (user) =>
+          user.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          user.email?.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredClients(filtered);
+      setFilteredUsers(filtered);
     } else {
-      setFilteredClients(clients);
+      setFilteredUsers(users);
     }
-  }, [searchTerm, clients]);
+  }, [searchTerm, users]);
 
-  const fetchClients = async () => {
+  const fetchUsers = async () => {
     try {
+      // Fetch all user profiles from the database
+      const profiles = await api.profiles.getAll();
+      
+      // Fetch all orders to calculate order statistics
       const orders = await api.orders.getAll();
       
-      // Group orders by customer email to create client profiles
-      const clientMap = new Map<string, Client>();
+      // Create a map to store order statistics per user
+      const orderStatsMap = new Map<string, { count: number; total: number }>();
       
       orders.forEach((order: any) => {
-        const email = order.customer_email || "guest@example.com";
-        const existing = clientMap.get(email);
-        
-        if (existing) {
-          existing.totalOrders += 1;
-          existing.totalSpent += order.total_amount / 100;
-          if (!existing.lastOrderDate || new Date(order.created_at) > new Date(existing.lastOrderDate)) {
-            existing.lastOrderDate = order.created_at;
+        if (order.user_id) {
+          const existing = orderStatsMap.get(order.user_id);
+          if (existing) {
+            existing.count += 1;
+            existing.total += order.total_amount / 100;
+          } else {
+            orderStatsMap.set(order.user_id, {
+              count: 1,
+              total: order.total_amount / 100,
+            });
           }
-        } else {
-          clientMap.set(email, {
-            id: email,
-            name: order.customer_name || "Guest Customer",
-            email: email,
-            phone: order.customer_phone,
-            address: order.shipping_address,
-            totalOrders: 1,
-            totalSpent: order.total_amount / 100,
-            lastOrderDate: order.created_at,
-          });
         }
       });
       
-      const clientsArray = Array.from(clientMap.values()).sort(
-        (a, b) => b.totalSpent - a.totalSpent
+      // Combine profile data with order statistics
+      const usersWithStats = profiles.map((profile: Profile) => {
+        const stats = orderStatsMap.get(profile.id);
+        return {
+          ...profile,
+          orderCount: stats?.count || 0,
+          totalSpent: stats?.total || 0,
+        };
+      });
+      
+      // Sort by creation date (newest first)
+      const sortedUsers = usersWithStats.sort(
+        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
       
-      setClients(clientsArray);
-      setFilteredClients(clientsArray);
+      setUsers(sortedUsers);
+      setFilteredUsers(sortedUsers);
     } catch (error) {
-      console.error("Error fetching clients:", error);
-      toast.error("Failed to load clients");
+      console.error("Error fetching users:", error);
+      toast.error("Failed to load user profiles");
     } finally {
       setLoading(false);
     }
@@ -98,12 +98,13 @@ export default function AdminClients() {
     navigate("/");
   };
 
-  const getClientTier = (totalSpent: number) => {
-    if (totalSpent >= 1000) return { label: "VIP", color: "bg-yellow-500" };
-    if (totalSpent >= 500) return { label: "Gold", color: "bg-orange-500" };
-    if (totalSpent >= 200) return { label: "Silver", color: "bg-gray-400" };
-    return { label: "Bronze", color: "bg-amber-700" };
+  const getRoleBadgeColor = (role: string) => {
+    return role === "admin" ? "bg-red-500" : "bg-blue-500";
   };
+
+  const totalUsers = users.length;
+  const adminUsers = users.filter(u => u.role === "admin").length;
+  const regularUsers = users.filter(u => u.role === "user").length;
 
   return (
     <div className="min-h-screen bg-background py-12">
@@ -112,8 +113,8 @@ export default function AdminClients() {
         
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-4xl font-bold">Manage Clients</h1>
-            <p className="text-muted-foreground mt-2">View and manage customer information</p>
+            <h1 className="text-4xl font-bold">User Profiles</h1>
+            <p className="text-muted-foreground mt-2">View all registered users and their profiles</p>
           </div>
           <Button variant="outline" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -125,40 +126,31 @@ export default function AdminClients() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Total Clients</CardTitle>
+              <CardTitle className="text-sm font-medium">Total Users</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{clients.length}</div>
-              <p className="text-xs text-muted-foreground mt-1">Registered customers</p>
+              <div className="text-3xl font-bold">{totalUsers}</div>
+              <p className="text-xs text-muted-foreground mt-1">Registered accounts</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+              <CardTitle className="text-sm font-medium">Admin Users</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">
-                ${clients.reduce((sum, client) => sum + client.totalSpent, 0).toFixed(2)}
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">From all clients</p>
+              <div className="text-3xl font-bold">{adminUsers}</div>
+              <p className="text-xs text-muted-foreground mt-1">Administrator accounts</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Average Order Value</CardTitle>
+              <CardTitle className="text-sm font-medium">Regular Users</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">
-                ${clients.length > 0
-                  ? (
-                      clients.reduce((sum, client) => sum + client.totalSpent, 0) /
-                      clients.reduce((sum, client) => sum + client.totalOrders, 0)
-                    ).toFixed(2)
-                  : "0.00"}
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">Per order</p>
+              <div className="text-3xl font-bold">{regularUsers}</div>
+              <p className="text-xs text-muted-foreground mt-1">Standard accounts</p>
             </CardContent>
           </Card>
         </div>
@@ -167,91 +159,85 @@ export default function AdminClients() {
         <div className="mb-6">
           <Input
             type="text"
-            placeholder="Search clients by name, email, or phone..."
+            placeholder="Search users by name or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="max-w-md"
           />
         </div>
 
-        {/* Clients List */}
+        {/* Users List */}
         {loading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            <p className="mt-4 text-muted-foreground">Loading clients...</p>
+            <p className="mt-4 text-muted-foreground">Loading user profiles...</p>
           </div>
-        ) : filteredClients.length === 0 ? (
+        ) : filteredUsers.length === 0 ? (
           <Card>
             <CardContent className="p-12 text-center">
               <p className="text-muted-foreground">
-                {searchTerm ? "No clients found matching your search" : "No clients found"}
+                {searchTerm ? "No users found matching your search" : "No registered users found"}
               </p>
             </CardContent>
           </Card>
         ) : (
           <div className="grid grid-cols-1 gap-4">
-            {filteredClients.map((client) => {
-              const tier = getClientTier(client.totalSpent);
-              return (
-                <Card key={client.id} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <h3 className="font-bold text-xl">{client.name}</h3>
-                          <Badge className={`${tier.color} text-white`}>
-                            {tier.label}
-                          </Badge>
+            {filteredUsers.map((user) => (
+              <Card key={user.id} className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                          <UserIcon className="w-6 h-6 text-primary" />
                         </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                            <Mail className="w-4 h-4" />
-                            <span>{client.email}</span>
+                        <div>
+                          <div className="flex items-center space-x-2">
+                            <h3 className="font-bold text-xl">
+                              {user.full_name || "No Name"}
+                            </h3>
+                            <Badge className={`${getRoleBadgeColor(user.role)} text-white`}>
+                              {user.role.toUpperCase()}
+                            </Badge>
                           </div>
-
-                          {client.phone && (
-                            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                              <Phone className="w-4 h-4" />
-                              <span>{client.phone}</span>
-                            </div>
-                          )}
-
-                          {client.address && (
-                            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                              <MapPin className="w-4 h-4" />
-                              <span className="line-clamp-1">{client.address}</span>
-                            </div>
-                          )}
-
-                          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                            <ShoppingBag className="w-4 h-4" />
-                            <span>{client.totalOrders} orders</span>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center space-x-6">
-                          <div>
-                            <p className="text-xs text-muted-foreground">Total Spent</p>
-                            <p className="text-lg font-bold text-primary">
-                              ${client.totalSpent.toFixed(2)}
-                            </p>
-                          </div>
-                          {client.lastOrderDate && (
-                            <div>
-                              <p className="text-xs text-muted-foreground">Last Order</p>
-                              <p className="text-sm font-medium">
-                                {new Date(client.lastOrderDate).toLocaleDateString()}
-                              </p>
-                            </div>
-                          )}
+                          <p className="text-sm text-muted-foreground">
+                            User ID: {user.id.substring(0, 8)}...
+                          </p>
                         </div>
                       </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          <Mail className="w-4 h-4" />
+                          <span>{user.email || "No email"}</span>
+                        </div>
+
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          <Calendar className="w-4 h-4" />
+                          <span>
+                            Joined {new Date(user.created_at).toLocaleDateString()}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          <Shield className="w-4 h-4" />
+                          <span>{user.orderCount || 0} orders placed</span>
+                        </div>
+
+                        {user.totalSpent !== undefined && user.totalSpent > 0 && (
+                          <div className="flex items-center space-x-2 text-sm">
+                            <span className="text-muted-foreground">Total Spent:</span>
+                            <span className="font-bold text-primary">
+                              ${user.totalSpent.toFixed(2)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         )}
       </div>
