@@ -246,31 +246,4 @@ CREATE POLICY "Admins have full access to orders" ON orders
 CREATE POLICY "Admins can manage contact inquiries" ON contact_inquiries
   FOR ALL TO authenticated USING (is_admin(auth.uid()));
 
--- Insert initial services data
-INSERT INTO services (title, description, icon) VALUES
-('Roof Installation', 'Professional installation of all types of roofing systems for residential and commercial properties.', '🏗️'),
-('Roof Repair', 'Expert repair services for damaged, leaking, or aging roofs to extend their lifespan.', '🔧'),
-('Roof Inspection', 'Comprehensive roof inspections to identify potential issues before they become major problems.', '🔍'),
-('Gutter Installation', 'Complete gutter system installation and replacement for proper water drainage.', '💧'),
-('Waterproofing', 'Advanced waterproofing solutions to protect your property from water damage.', '🛡️'),
-('Emergency Services', '24/7 emergency roofing services for urgent repairs and storm damage.', '🚨');
-
--- Insert initial products data
-INSERT INTO products (name, description, price, category, stock, image_url) VALUES
-('Asphalt Shingles - Premium', 'High-quality asphalt shingles with 30-year warranty. Weather-resistant and durable.', 89.99, 'Roofing Tiles and Shingles', 500, 'placeholder-asphalt-shingles.jpg'),
-('Clay Roof Tiles', 'Traditional clay tiles offering excellent durability and aesthetic appeal.', 149.99, 'Roofing Tiles and Shingles', 300, 'placeholder-clay-tiles.jpg'),
-('Metal Roofing Panels', 'Lightweight, durable metal roofing panels with superior longevity.', 199.99, 'Roofing Tiles and Shingles', 200, 'placeholder-metal-roofing.jpg'),
-('EPDM Rubber Membrane', 'Synthetic rubber roofing membrane ideal for flat roofs.', 129.99, 'Roofing Membranes', 150, 'placeholder-epdm-membrane.jpg'),
-('TPO Roofing Membrane', 'Energy-efficient white TPO membrane for commercial applications.', 139.99, 'Roofing Membranes', 180, 'placeholder-tpo-membrane.jpg'),
-('Aluminum Gutters - 10ft', 'Seamless aluminum gutters with rust-resistant coating.', 45.99, 'Gutters and Drainage', 400, 'placeholder-aluminum-gutters.jpg'),
-('Downspout Extensions', 'Flexible downspout extensions for proper water drainage.', 19.99, 'Gutters and Drainage', 600, 'placeholder-downspout.jpg'),
-('Fiberglass Insulation Batts', 'R-30 fiberglass insulation for superior thermal performance.', 59.99, 'Insulation Materials', 350, 'placeholder-insulation.jpg'),
-('Roofing Hammer', 'Professional-grade roofing hammer with magnetic nail holder.', 34.99, 'Roofing Tools', 100, 'placeholder-roofing-hammer.jpg'),
-('Waterproof Sealant', 'Premium waterproof sealant for all roofing applications.', 24.99, 'Waterproofing Solutions', 250, 'placeholder-sealant.jpg');
-
--- Insert initial projects data
-INSERT INTO projects (title, description, location, completion_date, is_featured, image_url) VALUES
-('Residential Roof Replacement', 'Complete roof replacement for a 3,000 sq ft residential property using premium asphalt shingles.', 'Austin, TX', '2024-09-15', true, 'placeholder-residential-project.jpg'),
-('Commercial Flat Roof Installation', 'Installation of TPO membrane roofing system for a 15,000 sq ft commercial building.', 'Dallas, TX', '2024-08-20', true, 'placeholder-commercial-project.jpg'),
-('Historic Building Restoration', 'Restoration of clay tile roofing on a historic downtown building.', 'San Antonio, TX', '2024-07-10', true, 'placeholder-historic-project.jpg'),
-('Emergency Storm Repair', 'Emergency repair services after severe storm damage to residential property.', 'Houston, TX', '2024-10-05', false, 'placeholder-storm-repair.jpg');
+-- Demo data removed - Add your own products, services, and projects through the admin panel
