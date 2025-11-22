@@ -2,7 +2,48 @@
 
 ## Common Production Issues and Fixes
 
-### Issue 1: White Screen / Blank Page
+### Issue 1: Redirect Loop (ERR_TOO_MANY_REDIRECTS)
+
+**Symptoms**: Browser shows "This page isn't working - redirected you too many times" or ERR_TOO_MANY_REDIRECTS
+
+**Cause**: Authentication system was redirecting before state was properly initialized
+
+**Solution**: ✅ **FIXED** - The application now includes proper loading states to prevent redirect loops.
+
+**If you still experience this issue**:
+
+1. **Clear Browser Data**:
+   ```
+   - Open DevTools (F12)
+   - Go to Application tab
+   - Click "Clear storage"
+   - Check "Clear site data"
+   - Refresh page
+   ```
+
+2. **Clear Session Storage**:
+   ```javascript
+   // Run in browser console
+   sessionStorage.clear();
+   localStorage.clear();
+   location.reload();
+   ```
+
+3. **Try Incognito Mode**:
+   - Open a new incognito/private window
+   - Visit the site
+   - If it works, the issue is with cached data
+
+4. **Check Cookies**:
+   - Ensure cookies are enabled
+   - Clear cookies for the domain
+   - Try again
+
+**For detailed information**, see `REDIRECT_LOOP_FIX.md`
+
+---
+
+### Issue 2: White Screen / Blank Page
 
 **Symptoms**: Application shows a white screen or blank page when published
 
@@ -43,7 +84,7 @@ VITE_LOGIN_TYPE=gmail
 
 ---
 
-### Issue 2: Authentication Not Working
+### Issue 3: Authentication Not Working
 
 **Symptoms**: Cannot log in, session not persisting, redirects not working
 
@@ -68,7 +109,7 @@ VITE_LOGIN_TYPE=gmail
 
 ---
 
-### Issue 3: Database Queries Failing
+### Issue 4: Database Queries Failing
 
 **Symptoms**: Data not loading, "Permission denied" errors
 
@@ -121,7 +162,7 @@ Look for these common issues in browser console:
 
 ---
 
-### Issue 4: Images Not Loading
+### Issue 5: Images Not Loading
 
 **Symptoms**: Broken image icons, images not displaying
 
@@ -145,7 +186,7 @@ If using Supabase Storage:
 
 ---
 
-### Issue 5: Routing Issues (404 Errors)
+### Issue 6: Routing Issues (404 Errors)
 
 **Symptoms**: Page refreshes show 404, direct URLs don't work
 
@@ -180,7 +221,7 @@ location / {
 
 ---
 
-### Issue 6: Stripe Payment Not Working
+### Issue 7: Stripe Payment Not Working
 
 **Symptoms**: Payment button doesn't work, checkout fails
 
@@ -197,7 +238,7 @@ location / {
 
 ---
 
-### Issue 7: Admin Panel Not Accessible
+### Issue 8: Admin Panel Not Accessible
 
 **Symptoms**: Cannot access /admin, redirects to login, "Access denied"
 
@@ -227,7 +268,7 @@ VALUES (
 
 ---
 
-### Issue 8: Performance Issues
+### Issue 9: Performance Issues
 
 **Symptoms**: Slow loading, laggy interface
 

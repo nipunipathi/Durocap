@@ -4,6 +4,7 @@ interface AdminAuthContextType {
   isAdminAuthenticated: boolean;
   adminLogin: (username: string, password: string) => boolean;
   adminLogout: () => void;
+  isLoading: boolean;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
@@ -16,6 +17,7 @@ const ADMIN_CREDENTIALS = {
 
 export function AdminAuthProvider({ children }: { children: ReactNode }) {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Check if admin is already logged in
@@ -23,6 +25,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     if (adminSession === "true") {
       setIsAdminAuthenticated(true);
     }
+    setIsLoading(false);
   }, []);
 
   const adminLogin = (username: string, password: string): boolean => {
@@ -40,7 +43,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AdminAuthContext.Provider value={{ isAdminAuthenticated, adminLogin, adminLogout }}>
+    <AdminAuthContext.Provider value={{ isAdminAuthenticated, adminLogin, adminLogout, isLoading }}>
       {children}
     </AdminAuthContext.Provider>
   );
