@@ -1,46 +1,75 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-
-type Currency = "USD" | "INR";
+import {
+  type CurrencyCode,
+  type CurrencyConfig,
+  DEFAULT_CURRENCY,
+  getActiveCurrencies,
+  getCurrencyConfig,
+  isCurrencyActive,
+} from "@/config/currencies";
+import {
+  convertPrice as convertPriceUtil,
+  formatPrice as formatPriceUtil,
+  getCurrencySymbol,
+  getCurrencyName,
+  getExchangeRate,
+} from "@/lib/currency";
 
 interface CurrencyContextType {
-  currency: Currency;
-  setCurrency: (currency: Currency) => void;
+  currency: CurrencyCode;
+  setCurrency: (currency: CurrencyCode) => void;
+  currencyConfig: CurrencyConfig;
+  availableCurrencies: CurrencyConfig[];
   convertPrice: (price: number) => number;
-  formatPrice: (price: number) => string;
-  exchangeRate: number;
+  formatPrice: (price: number, options?: { showCode?: boolean; useLocale?: boolean }) => string;
+  getCurrencySymbol: () => string;
+  getCurrencyName: () => string;
+  getExchangeRate: () => number;
 }
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);
 
-// Exchange rate: 1 USD = 83 INR (approximate)
-const USD_TO_INR_RATE = 83;
+const STORAGE_KEY = "preferred_currency";
 
 export function CurrencyProvider({ children }: { children: ReactNode }) {
-  const [currency, setCurrency] = useState<Currency>(() => {
+  const [currency, setCurrencyState] = useState<CurrencyCode>(() => {
     // Load saved currency preference from localStorage
-    const saved = localStorage.getItem("preferred_currency");
-    return (saved as Currency) || "USD";
+    const saved = localStorage.getItem(STORAGE_KEY) as CurrencyCode;
+    
+    // Validate saved currency is active
+    if (saved && isCurrencyActive(saved)) {
+      return saved;
+    }
+    
+    return DEFAULT_CURRENCY;
   });
 
   useEffect(() => {
     // Save currency preference to localStorage
-    localStorage.setItem("preferred_currency", currency);
+    localStorage.setItem(STORAGE_KEY, currency);
   }, [currency]);
 
-  const convertPrice = (price: number): number => {
-    if (currency === "INR") {
-      return price * USD_TO_INR_RATE;
+  const setCurrency = (newCurrency: CurrencyCode) => {
+    if (!isCurrencyActive(newCurrency)) {
+      console.warn(`Currency ${newCurrency} is not active`);
+      return;
     }
-    return price;
+    setCurrencyState(newCurrency);
   };
 
-  const formatPrice = (price: number): string => {
+  const currencyConfig = getCurrencyConfig(currency);
+  const availableCurrencies = getActiveCurrencies();
+
+  const convertPrice = (price: number): number => {
+    return convertPriceUtil(price, currency);
+  };
+
+  const formatPrice = (
+    price: number,
+    options?: { showCode?: boolean; useLocale?: boolean }
+  ): string => {
     const convertedPrice = convertPrice(price);
-    
-    if (currency === "INR") {
-      return `₹${convertedPrice.toFixed(2)}`;
-    }
-    return `$${convertedPrice.toFixed(2)}`;
+    return formatPriceUtil(convertedPrice, currency, options);
   };
 
   return (
@@ -48,9 +77,13 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
       value={{
         currency,
         setCurrency,
+        currencyConfig,
+        availableCurrencies,
         convertPrice,
         formatPrice,
-        exchangeRate: USD_TO_INR_RATE,
+        getCurrencySymbol: () => getCurrencySymbol(currency),
+        getCurrencyName: () => getCurrencyName(currency),
+        getExchangeRate: () => getExchangeRate(currency),
       }}
     >
       {children}
