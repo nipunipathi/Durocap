@@ -114,8 +114,8 @@ export default function Home() {
               <div className="relative z-10 transform hover:scale-105 transition-transform duration-500">
                 <div className="absolute -inset-4 bg-gradient-to-r from-[#7DD3E8] to-[#2C5F7C] rounded-3xl blur-2xl opacity-30"></div>
                 <img 
-                  src="https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?w=1200&q=80" 
-                  alt="Professional Roofing Installation" 
+                  src="https://miaoda-site-img.s3cdn.medo.dev/images/f710436e-7714-438f-ad5f-116cec1d437d.jpg" 
+                  alt="Professional Commercial Roofing Installation" 
                   className="relative rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.5)] w-full h-auto border-4 border-white/20"
                 />
                 <div className="absolute -bottom-8 -left-8 bg-white rounded-2xl shadow-2xl p-8 max-w-sm transform hover:scale-105 transition-transform">
@@ -136,6 +136,13 @@ export default function Home() {
       </section>
 
       <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <img 
+            src="https://miaoda-site-img.s3cdn.medo.dev/images/0c78722e-4900-4bda-974a-f5910dc8d5fe.jpg" 
+            alt="Roofing pattern background"
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#7DD3E8] rounded-full blur-3xl opacity-5"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#2C5F7C] rounded-full blur-3xl opacity-5"></div>
         
@@ -188,6 +195,13 @@ export default function Home() {
       </section>
 
       <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <img 
+            src="https://miaoda-site-img.s3cdn.medo.dev/images/b7f4130b-2883-41b8-9410-cf895054cd18.jpg" 
+            alt="Modern roofing construction background"
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyQzVGN0MiIGZpbGwtb3BhY2l0eT0iMC4wMiI+PHBhdGggZD0iTTM2IDE2YzAtMS4xLS45LTItMi0yaC00Yy0xLjEgMC0yIC45LTIgMnY0YzAgMS4xLjkgMiAyIDJoNGMxLjEgMCAyLS45IDItMnYtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-50"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -223,6 +237,13 @@ export default function Home() {
       </section>
 
       <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <img 
+            src="https://miaoda-site-img.s3cdn.medo.dev/images/c76df02a-6717-4c12-8c3e-2bd57a2cd760.jpg" 
+            alt="Roofing materials background"
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#7DD3E8] rounded-full blur-3xl opacity-5"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#2C5F7C] rounded-full blur-3xl opacity-5"></div>
         
@@ -263,6 +284,13 @@ export default function Home() {
       </section>
 
       <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <img 
+            src="https://miaoda-site-img.s3cdn.medo.dev/images/2640ebd5-f26b-42a2-b319-8f6cd7116f71.jpg" 
+            alt="Modern architecture roof design background"
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyQzVGN0MiIGZpbGwtb3BhY2l0eT0iMC4wMiI+PHBhdGggZD0iTTM2IDE2YzAtMS4xLS45LTItMi0yaC00Yy0xLjEgMC0yIC45LTIgMnY0YzAgMS4xLjkgMiAyIDJoNGMxLjEgMCAyLS45IDItMnYtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-50"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
