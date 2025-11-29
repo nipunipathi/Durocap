@@ -48,7 +48,7 @@ export default function Home() {
     <div className="min-h-screen">
       <section className="relative min-h-screen xl:h-screen flex items-stretch overflow-hidden">
         <div className="w-full xl:grid xl:grid-cols-2 xl:gap-0">
-          <div className="hidden xl:flex from-[#CBE5F1] to-white relative items-start justify-center pt-28 min-h-screen overflow-hidden bg-cover bg-center bg-no-repeat bg-[#ffffff] bg-none">
+          <div className="flex items-center justify-center px-8 xl:px-28 py-20 xl:py-0 min-h-[600px] xl:min-h-screen border-solid bg-cover bg-center bg-no-repeat border-[0px] border-[rgb(218,226,231)] bg-[#ffffff] bg-none">
             <div className="max-w-2xl w-full space-y-10 animate-fade-in">
               <h1 className="text-4xl xl:text-6xl leading-tight font-serif text-[#0c0c0dff]" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>We are DuroCap — offering trusted, durable, and affordable roofing solutions for commercial and residential projects across Kerala.</h1>
               
@@ -72,7 +72,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="hidden xl:flex from-[#CBE5F1] to-white relative items-start justify-center pt-28 min-h-screen overflow-hidden bg-inherit bg-cover bg-center bg-no-repeat bg-[url(https://miaoda-edit-image.s3cdn.medo.dev/7p9lig9vkiyp/IMG-7w0pct27hkao.png)]">
+          <div className="hidden xl:flex from-[#CBE5F1] to-white relative items-start justify-center pt-28 min-h-screen overflow-hidden bg-inherit bg-cover bg-center bg-no-repeat bg-[url(https://miaoda-edit-image.s3cdn.medo.dev/7p9lig9vkiyp/IMG-7w0wspha1eyo.png)]">
             <div className="w-full max-w-xl px-12 mb-auto">
               <img 
                 src="https://miaoda-conversation-file.s3cdn.medo.dev/user-7fwukq22idq8/conv-7p9lig9vkiyo/20251126/file-7tmweuqklfy9.png" 
