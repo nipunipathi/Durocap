@@ -7,7 +7,7 @@ import { api } from "@/db/api";
 import type { Order } from "@/types";
 import { useAuth } from "@/components/auth/useAuth";
 import { toast } from "sonner";
-import { CheckCircle, Clock, XCircle } from "lucide-react";
+import { CheckCircle, Clock, XCircle, CreditCard, QrCode, Wallet } from "lucide-react";
 
 export default function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -96,6 +96,33 @@ export default function Orders() {
     }
   };
 
+  const getPaymentMethodBadge = (paymentMethod: string) => {
+    switch (paymentMethod) {
+      case "razorpay":
+        return (
+          <Badge variant="outline" className="border-[#528FF0] text-[#528FF0]">
+            <Wallet className="w-3 h-3 mr-1" />
+            Razorpay
+          </Badge>
+        );
+      case "manual":
+      case "qr_code":
+        return (
+          <Badge variant="outline" className="border-primary text-primary">
+            <QrCode className="w-3 h-3 mr-1" />
+            Manual Payment
+          </Badge>
+        );
+      default:
+        return (
+          <Badge variant="outline">
+            <CreditCard className="w-3 h-3 mr-1" />
+            {paymentMethod || "Stripe"}
+          </Badge>
+        );
+    }
+  };
+
   if (!user) {
     return (
       <div className="min-h-screen bg-background py-12">
@@ -152,6 +179,7 @@ export default function Orders() {
                       {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                     </Badge>
                     {getPaymentStatusBadge(order.payment_confirmation_status)}
+                    {order.payment_method && getPaymentMethodBadge(order.payment_method)}
                   </div>
                 </div>
               </CardHeader>

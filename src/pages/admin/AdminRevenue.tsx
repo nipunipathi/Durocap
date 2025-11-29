@@ -218,6 +218,64 @@ export default function AdminRevenue() {
         </Card>
       </div>
 
+      {/* Payment Method Breakdown */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4">Payment Method Breakdown</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Razorpay Revenue</CardTitle>
+              <DollarSign className="h-4 w-4 text-[#528FF0]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${stats?.razorpay_revenue?.toFixed(2) || "0.00"}</div>
+              <p className="text-xs text-muted-foreground">{stats?.razorpay_count || 0} orders</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Manual Payment Revenue</CardTitle>
+              <DollarSign className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${stats?.manual_revenue?.toFixed(2) || "0.00"}</div>
+              <p className="text-xs text-muted-foreground">{stats?.manual_count || 0} orders</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Razorpay Percentage</CardTitle>
+              <TrendingUp className="h-4 w-4 text-[#528FF0]" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {stats?.total_revenue && stats.razorpay_revenue
+                  ? ((stats.razorpay_revenue / stats.total_revenue) * 100).toFixed(1)
+                  : "0.0"}%
+              </div>
+              <p className="text-xs text-muted-foreground">Of total revenue</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Manual Percentage</CardTitle>
+              <TrendingUp className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {stats?.total_revenue && stats.manual_revenue
+                  ? ((stats.manual_revenue / stats.total_revenue) * 100).toFixed(1)
+                  : "0.0"}%
+              </div>
+              <p className="text-xs text-muted-foreground">Of total revenue</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
       {/* Charts */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
         <Card>

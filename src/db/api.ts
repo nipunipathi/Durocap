@@ -210,6 +210,28 @@ export const api = {
   },
 
   orders: {
+    async create(orderData: {
+      user_id: string | null;
+      items: any[];
+      total_amount: number;
+      currency: string;
+      payment_method: string;
+      customer_email?: string;
+      customer_name?: string;
+    }) {
+      const { data, error } = await supabase
+        .from("orders")
+        .insert({
+          ...orderData,
+          status: 'pending',
+          payment_confirmation_status: 'not_submitted',
+        })
+        .select()
+        .maybeSingle();
+      if (error) throw error;
+      return data;
+    },
+
     async getAll() {
       const { data, error } = await supabase
         .from("orders")
@@ -290,6 +312,41 @@ export const api = {
         end_date: endDate || null,
       });
       if (error) throw error;
+      return data;
+    },
+
+    async createRazorpayOrder(orderId: string, amount: number, currency: string, customerEmail?: string, customerName?: string) {
+      const { data, error } = await supabase.functions.invoke("create-razorpay-order", {
+        body: JSON.stringify({
+          orderId,
+          amount,
+          currency,
+          customerEmail,
+          customerName,
+        }),
+      });
+      if (error) {
+        const errorMsg = await error?.context?.text();
+        console.error("Edge function error in create-razorpay-order:", errorMsg);
+        throw new Error(errorMsg || "Failed to create Razorpay order");
+      }
+      return data;
+    },
+
+    async verifyRazorpayPayment(orderId: string, razorpayOrderId: string, razorpayPaymentId: string, razorpaySignature: string) {
+      const { data, error } = await supabase.functions.invoke("verify-razorpay-payment", {
+        body: JSON.stringify({
+          orderId,
+          razorpayOrderId,
+          razorpayPaymentId,
+          razorpaySignature,
+        }),
+      });
+      if (error) {
+        const errorMsg = await error?.context?.text();
+        console.error("Edge function error in verify-razorpay-payment:", errorMsg);
+        throw new Error(errorMsg || "Failed to verify Razorpay payment");
+      }
       return data;
     },
   },

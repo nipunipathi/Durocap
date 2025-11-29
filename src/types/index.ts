@@ -8,6 +8,8 @@ export interface Option {
 export type UserRole = 'user' | 'admin';
 export type OrderStatus = 'pending' | 'completed' | 'cancelled' | 'refunded';
 export type PaymentConfirmationStatus = 'not_submitted' | 'pending_confirmation' | 'confirmed' | 'payment_failed';
+export type PaymentMethod = 'razorpay' | 'manual' | 'qr_code';
+export type Currency = 'USD' | 'INR';
 
 export interface Profile {
   id: string;
@@ -70,13 +72,20 @@ export interface Order {
   user_id: string | null;
   items: OrderItem[];
   total_amount: number;
-  currency: string;
+  currency: Currency;
   status: OrderStatus;
+  payment_method: PaymentMethod;
   payment_confirmation_status: PaymentConfirmationStatus;
   payment_submitted_at: string | null;
   payment_confirmed_at: string | null;
   payment_confirmed_by: string | null;
   payment_notes: string | null;
+  razorpay_order_id: string | null;
+  razorpay_payment_id: string | null;
+  razorpay_signature: string | null;
+  exchange_rate: number | null;
+  amount_in_usd: number | null;
+  amount_in_inr: number | null;
   stripe_session_id: string | null;
   stripe_payment_intent_id: string | null;
   customer_email: string | null;
@@ -103,6 +112,10 @@ export interface RevenueStats {
   confirmed_orders: number;
   pending_orders: number;
   average_order_value: number;
+  razorpay_revenue: number;
+  razorpay_count: number;
+  manual_revenue: number;
+  manual_count: number;
 }
 
 export interface ContactInquiry {
@@ -119,4 +132,45 @@ export interface ContactInquiry {
 export interface CartItem extends Product {
   quantity: number;
 }
+
+export interface RazorpayOrderResponse {
+  id: string;
+  amount: number;
+  currency: string;
+  receipt: string;
+}
+
+export interface RazorpayPaymentResponse {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+}
+
+export interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpayPaymentResponse) => void;
+  prefill?: {
+    name?: string;
+    email?: string;
+    contact?: string;
+  };
+  theme?: {
+    color?: string;
+  };
+}
+
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => {
+      open: () => void;
+      on: (event: string, handler: (response: unknown) => void) => void;
+    };
+  }
+}
+
 

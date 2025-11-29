@@ -11,6 +11,7 @@ import type { CartItem } from "@/types";
 import { api } from "@/db/api";
 import { toast } from "sonner";
 import { useAuth } from "@/components/auth/useAuth";
+import { RazorpayPaymentFlow } from "@/components/payment/RazorpayPaymentFlow";
 
 export default function Cart() {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -161,17 +162,35 @@ export default function Cart() {
                   </div>
                 </div>
 
-                <Tabs defaultValue="online" className="w-full">
-                  <TabsList className="grid w-full grid-cols-2">
+                <Tabs defaultValue="razorpay" className="w-full">
+                  <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="razorpay" className="flex items-center gap-2">
+                      <CreditCard className="w-4 h-4" />
+                      Razorpay
+                    </TabsTrigger>
                     <TabsTrigger value="online" className="flex items-center gap-2">
                       <CreditCard className="w-4 h-4" />
-                      Online Payment
+                      Stripe
                     </TabsTrigger>
                     <TabsTrigger value="qr" className="flex items-center gap-2">
                       <QrCode className="w-4 h-4" />
                       QR Payment
                     </TabsTrigger>
                   </TabsList>
+
+                  <TabsContent value="razorpay" className="space-y-4">
+                    <p className="text-sm text-muted-foreground">
+                      Pay securely with Razorpay - supports UPI, cards, net banking, and wallets.
+                    </p>
+                    <RazorpayPaymentFlow
+                      cartItems={cart}
+                      totalAmount={total}
+                      currency="USD"
+                      onSuccess={() => {
+                        setCart([]);
+                      }}
+                    />
+                  </TabsContent>
 
                   <TabsContent value="online" className="space-y-4">
                     <p className="text-sm text-muted-foreground">

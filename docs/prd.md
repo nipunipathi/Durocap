@@ -27,11 +27,12 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 ### 2.1 Customer-Facing Features
 - Product browsing and search functionality
 - Shopping cart system for adding and managing items
-- Secure payment integration for online transactions
+- Secure payment integration for online transactions via Razorpay
 - Service inquiry and booking\n- Project portfolio showcase with interactive image gallery
 - Contact form for customer inquiries
 - User registration and login with email/password and Google authentication
-- User profile management\n- Cart management and checkout\n- QR code payment processing
+- User profile management
+- Cart management and checkout\n- QR code payment processing
 - **Currency conversion switch between USD and INR with real-time price display**
 
 ### 2.2 Currency Conversion Feature
@@ -44,11 +45,13 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 
 ### 2.3 User Login Page
 - **Login Form**: Email/username and password input fields
-- **Remember Me**: Checkbox option to save login credentials\n- **Forgot Password**: Link to password recovery process
+- **Remember Me**: Checkbox option to save login credentials
+- **Forgot Password**: Link to password recovery process
 - **Sign Up Link**: Redirect to user registration page for new customers
 - **Google Sign In**: Quick login via OSS Google login method with'Sign in with Google' button displaying Google logo
 - **Security**: Input validation and encrypted password transmission
-\n### 2.4 User Registration Page
+
+### 2.4 User Registration Page
 - **Registration Form**: Input fields for name, email, password, and confirm password
 - **Email Verification**: Send verification email to confirm account\n- **Password Requirements**: Display password strength requirements (minimum 8 characters, mix of letters and numbers)
 - **Google Sign Up**: Quick registration via OSS Google login method with 'Sign up with Google' button displaying Google logo
@@ -57,7 +60,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 \n### 2.5 User Page Features
 - **User Profile Section**: Display and edit user information including name, email, phone number, shipping address, and order history
 - **Cart Section**: View cart items, adjust quantities, remove items, view subtotal and total amounts in selected currency
-- **Payment Section**: Complete checkout with QR code payment option for secure transactions, amounts displayed in selected currency
+- **Payment Section**: Complete checkout with Razorpay payment gateway and QR code payment option for secure transactions, amounts displayed in selected currency
 \n### 2.6 Product List Page
 - **Product Grid Display**: Products displayed in responsive grid layout (3-4 columns on desktop, 2 columns on tablet, 1 column on mobile)\n- **Product Cards**: Each card shows product image, name, price in selected currency (USD/INR), brief description, and 'Add to Cart' button
 - **Category Filter**: Sidebar or top filter bar to filter products by category (roofing tiles, membranes, gutters, insulation, tools, waterproofing)\n- **Search Bar**: Search functionality to find products by name or keyword
@@ -79,15 +82,21 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 ### 2.8 Payment Page
 - **Order Summary**: Display final list of items, quantities, prices in selected currency, and total amount
 - **Shipping Information**: Form to enter or confirm delivery address (name, phone, address, city, postal code)\n- **Billing Information**: Option to use same as shipping address or enter different billing address
-- **Payment Method Selection**: Choose from available payment options (credit/debit card, QR code payment, digital wallet)\n- **QR Code Payment**: Display QR code for scanning with mobile payment apps (WeChat Pay, Alipay, etc.)
-- **Credit Card Form**: Secure input fields for card number, expiration date, CVV, and cardholder name
+- **Payment Method Selection**: Choose from available payment options including:\n  - **Razorpay Payment Gateway**: Integrated Razorpay checkout supporting credit/debit cards, UPI, net banking, wallets, and EMI options
+  - **QR Code Payment**: Display QR code for scanning with mobile payment apps\n  - **Digital Wallet**: Other digital wallet options\n- **Razorpay Integration**: \n  - Secure Razorpay checkout modal with multiple payment options
+  - Support for INR and USD currency transactions
+  - Real-time payment status updates
+  - Automatic payment confirmation upon successful transaction
+  - Payment receipt generation
+- **Credit Card Form**: Secure input fields for card number, expiration date, CVV, and cardholder name (via Razorpay)
 - **Order Notes**: Optional text area for special delivery instructions or comments
 - **Terms and Conditions**: Checkbox to agree to terms before completing purchase
-- **Place Order Button**: Final confirmation button to submit order
-- **I Have Made Payment Button**: After completing payment through QR code or external payment method, user clicks this button to notify admin of payment completion
+- **Place Order Button**: Final confirmation button to submit order and initiate Razorpay payment
+- **I Have Made Payment Button**: For QR code or external payment methods, user clicks this button to notify admin of payment completion
 - **Payment Confirmation Notification**: When'I Have Made Payment' button is clicked, system sends notification to admin dashboard with order details and payment amount in selected currency, marking order as 'Pending Admin Confirmation'
-- **Security Badges**: Display SSL encryption and secure payment icons for customer trust
-- **Order Confirmation**: After admin confirms payment, display order confirmation page with order number, estimated delivery date, and email confirmation notice
+- **Razorpay Automatic Confirmation**: Orders paid via Razorpay are automatically confirmed without requiring admin approval
+- **Security Badges**: Display SSL encryption, Razorpay secure payment badge, and other security icons for customer trust
+- **Order Confirmation**: After successful Razorpay payment or admin confirmation, display order confirmation page with order number, estimated delivery date, and email confirmation notice
 - **Currency Display**: All payment amounts shown in user's selected currency (USD or INR)
 
 ### 2.9 Admin Login Page
@@ -99,26 +108,29 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 \n### 2.10 Admin Dashboard
 - **Product Management**: Add, edit, delete, and update product listings with image upload and category assignment
 - **Service Management**: Add, edit, delete, and modify service offerings and descriptions
-- **Order History Management**: View complete order history with filtering options by date, status, and customer\n- **Payment Confirmation Queue**: Display list of orders with'Pending Admin Confirmation' status, showing order number, customer name, payment amount in original currency, and timestamp
-- **Confirm Payment Action**: Admin reviews payment notification and clicks 'Confirm Payment' button to approve the transaction
-- **Revenue Update**: Upon admin confirmation, order amount is automatically added to total revenue counter and reflected in business growth analytics
+- **Order History Management**: View complete order history with filtering options by date, status, payment method (Razorpay/QR code/other), and customer\n- **Payment Confirmation Queue**: Display list of orders with'Pending Admin Confirmation' status (for non-Razorpay payments), showing order number, customer name, payment amount in original currency, and timestamp
+- **Razorpay Transaction Dashboard**: View all Razorpay transactions with payment ID, status, amount, and timestamp
+- **Confirm Payment Action**: Admin reviews payment notification and clicks 'Confirm Payment' button to approve manual transactions
+- **Revenue Update**: Upon admin confirmation or automatic Razorpay confirmation, order amount is automatically added to total revenue counter and reflected in business growth analytics
 - **Reject Payment Option**: Admin can reject payment if verification fails, triggering notification to customer for payment resubmission
+- **Razorpay Refund Management**: Process refunds for Razorpay transactions directly from admin dashboard
 - **Client Management**: View and manage customer information, track customer orders, and communication history
-- **Business Growth Analytics**: Interactive dashboard displaying business growth metrics through visual graphs and charts, including:\n  - Revenue trends over time (line/bar charts) with real-time updates after payment confirmations
+- **Business Growth Analytics**: Interactive dashboard displaying business growth metrics through visual graphs and charts, including:
+  - Revenue trends over time (line/bar charts) with real-time updates after payment confirmations
   - Order volume statistics (monthly/quarterly comparisons)
   - Product category performance analysis
   - Customer acquisition trends
+  - Payment method breakdown (Razorpay vs other methods)
   - Total revenue counter displaying cumulative confirmed payments
 - **Sales Visualization Report**: Visual charts and graphs automatically update to reflect newly confirmed payments, showing revenue breakdown by date, product category, and payment method
 - **Project Portfolio Management**: Add, edit, and delete project showcase images in PNG format with descriptions and metadata
 - **Customer Inquiry Management**: Review and respond to customer inquiries from contact forms
 - **Homepage Carousel Management**: Add, edit, delete, and reorder carousel slides with image upload, overlay text editing, and call-to-action button configuration
-
-### 2.11 Projects Section Enhancement
+\n### 2.11 Projects Section Enhancement
 - Display '100+ Successful Projects' headline with prominent visibility
 - Interactive image gallery showcasing completed roofing projects\n- Hover effects on project images: zoom-in animation (1.1x scale) with smooth transition
 - Project images displayed in grid layout with overlay information on hover
-- 'See more' button linking to full Projects page\n- Use Screenshot2025-11-21085459.png as reference for project showcase styling
+- 'See more' button linking to full Projects page\n- Use Screenshot2025-11-21 085459.png as reference for project showcase styling
 
 ### 2.12 Homepage Carousel Feature
 - **Carousel/Slider Component**: Auto-rotating image carousel positioned prominently on landing page below header navigation
@@ -144,7 +156,8 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Primary color: Deep teal blue (#2C5F7C) representing professionalism and trust
 - Secondary color: Bright cyan (#7DD3E8) for modern appeal and interactive elements
 - Accent color: Clean white (#FFFFFF) for contrast and clarity
-- Reference image: Screenshot2025-11-21 085459.png\n
+- Razorpay brand color: Blue (#528FF0) for payment buttons and badges
+- Reference image: Screenshot 2025-11-21 085459.png\n
 ### 4.2 Visual Details
 - Smooth rounded corners (8px radius) for modern card-based layouts
 - Subtle shadow effects (04px 12px rgba(0,0,0,0.1)) for depth and hierarchy
@@ -154,6 +167,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Logo integration: MainLogo.png displayed in header navigation
 - Login and registration pages feature centered form cards with soft shadows and clean input fields
 - Google sign in/up buttons styled with official Google brand colors (white background, blue Google logo, dark text)
+- Razorpay payment button styled with Razorpay brand blue color and secure payment badge
 - Currency selector styled as modern toggle switch or dropdown with flag icons
 - Carousel transitions with smooth fade or slide effects (0.5s duration)
 - Payment confirmation notifications styled with alert badge icons and highlighted background color
@@ -176,11 +190,11 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Sticky navigation bar for easy access across pages with currency selector positioned in top-right corner
 - Visual hierarchy emphasizing product images and key information
 - User page organized in tabbed or sectioned layout: Profile, Cart, and Payment sections clearly separated
-- Admin dashboard with sidebar navigation and main content area featuring data visualization charts, payment confirmation queue, and management tables
+- Admin dashboard with sidebar navigation and main content area featuring data visualization charts, Razorpay transaction dashboard, payment confirmation queue, and management tables
 - Login and registration pages with centered vertical layout, form card positioned in middle of viewport with AI-generated background image
 - Product list page with sidebar filters and main content area for product grid\n- Cart page with two-column layout: item list on left, order summary on right (stacked on mobile)
-- Payment page with step-by-step form layout, progress indicator at top showing current step, and prominent'I Have Made Payment' button after payment method selection
+- Payment page with step-by-step form layout, progress indicator at top showing current step, Razorpay checkout modal integration, and prominent'I Have Made Payment' button for alternative payment methods
 
 ## 5. Reference Images
-- Screenshot2025-11-21 085459.png\n- MainLogo.png
+- Screenshot 2025-11-21 085459.png\n- MainLogo.png
 - HeroImage.jpg
