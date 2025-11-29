@@ -48,11 +48,9 @@ export default function Home() {
     <div className="min-h-screen">
       <section className="relative min-h-screen xl:h-screen flex items-stretch overflow-hidden">
         <div className="w-full xl:grid xl:grid-cols-2 xl:gap-0">
-          <div className="bg-[#174B63] flex items-center justify-center px-8 xl:px-28 py-20 xl:py-0 min-h-[600px] xl:min-h-screen">
+          <div className="flex items-center justify-center px-8 xl:px-28 py-20 xl:py-0 min-h-[600px] xl:min-h-screen bg-inherit bg-cover bg-center bg-no-repeat bg-[url(https://miaoda-edit-image.s3cdn.medo.dev/7p9lig9vkiyp/IMG-7vukblb2ls74.png)]">
             <div className="max-w-2xl w-full space-y-10 animate-fade-in">
-              <h1 className="text-4xl xl:text-6xl leading-tight font-serif text-white" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
-                We are <span className="text-[#2AA7C6]">DuroCap</span> — offering trusted, durable, and affordable roofing solutions for commercial and residential projects across Kerala.
-              </h1>
+              <h1 className="text-4xl xl:text-6xl leading-tight font-serif text-[#0c0c0dff]" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>We are DuroCap — offering trusted, durable, and affordable roofing solutions for commercial and residential projects across Kerala.</h1>
               
               <div className="flex flex-col sm:flex-row gap-5 pt-4">
                 <Link to="/about">
@@ -67,10 +65,8 @@ export default function Home() {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-[#174B63] font-bold px-10 py-6 text-lg rounded-lg bg-transparent transition-all transform hover:scale-105"
-                  >
-                    OUR SERVICES
-                  </Button>
+                    className="w-full sm:w-auto border-2 border-white hover:bg-white hover:text-[#174B63] font-bold px-10 py-6 text-lg rounded-lg bg-transparent transition-all transform hover:scale-105 text-[#0c0c0dff]"
+                  >OUR SERVICES</Button>
                 </Link>
               </div>
             </div>
@@ -96,7 +92,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-3 gap-12 text-center">
@@ -115,7 +110,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <img 
@@ -192,7 +186,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <img 
@@ -251,7 +244,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <img 
@@ -293,7 +285,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-24 bg-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <img 
@@ -340,7 +331,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <img 
@@ -395,7 +385,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="py-24 bg-gradient-to-br from-[#2C5F7C] via-[#1e4a5f] to-[#0f2d3d] text-white relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-10 right-10 w-96 h-96 bg-[#7DD3E8] rounded-full blur-3xl opacity-20 animate-pulse"></div>
