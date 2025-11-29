@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { api } from "@/db/api";
-import type { Order } from "@/types";
+import type { Order, PaymentMethod } from "@/types";
 import { useAuth } from "@/components/auth/useAuth";
 import { toast } from "sonner";
 import { CheckCircle, Clock, XCircle, CreditCard, QrCode, Wallet } from "lucide-react";
@@ -96,7 +96,7 @@ export default function Orders() {
     }
   };
 
-  const getPaymentMethodBadge = (paymentMethod: string) => {
+  const getPaymentMethodBadge = (paymentMethod: PaymentMethod) => {
     switch (paymentMethod) {
       case "razorpay":
         return (

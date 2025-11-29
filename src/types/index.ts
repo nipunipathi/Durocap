@@ -72,9 +72,9 @@ export interface Order {
   user_id: string | null;
   items: OrderItem[];
   total_amount: number;
-  currency: Currency;
+  currency?: Currency;
   status: OrderStatus;
-  payment_method: PaymentMethod;
+  payment_method?: PaymentMethod;
   payment_confirmation_status: PaymentConfirmationStatus;
   payment_submitted_at: string | null;
   payment_confirmed_at: string | null;
@@ -112,10 +112,10 @@ export interface RevenueStats {
   confirmed_orders: number;
   pending_orders: number;
   average_order_value: number;
-  razorpay_revenue: number;
-  razorpay_count: number;
-  manual_revenue: number;
-  manual_count: number;
+  razorpay_revenue?: number;
+  razorpay_count?: number;
+  manual_revenue?: number;
+  manual_count?: number;
 }
 
 export interface ContactInquiry {
