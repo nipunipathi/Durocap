@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus, Pencil, Trash2, Star, StarOff } from "lucide-react";
+import { Plus, Pencil, Trash2, Star, StarOff, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { api } from "@/db/api";
+import { supabase } from "@/db/supabase";
 import type { Project } from "@/types";
 import { toast } from "sonner";
 
@@ -38,6 +39,9 @@ export default function AdminProjects() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>("");
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -77,6 +81,7 @@ export default function AdminProjects() {
         year: project.year || new Date().getFullYear(),
         is_featured: project.is_featured,
       });
+      setPreviewUrl(project.image_url || "");
     } else {
       setEditingProject(null);
       setFormData({
@@ -88,30 +93,127 @@ export default function AdminProjects() {
         year: new Date().getFullYear(),
         is_featured: false,
       });
+      setPreviewUrl("");
     }
+    setSelectedFile(null);
     setDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
     setEditingProject(null);
+    setSelectedFile(null);
+    setPreviewUrl("");
+  };
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
+    if (!validTypes.includes(file.type)) {
+      toast.error("Please select a valid image file (PNG, JPG, JPEG, WebP, or GIF)");
+      return;
+    }
+
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    if (file.size > maxSize) {
+      toast.error("Image size must be less than 5MB");
+      return;
+    }
+
+    setSelectedFile(file);
+    
+    // Create preview URL
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedFile(null);
+    setPreviewUrl("");
+    setFormData({ ...formData, image_url: "" });
+  };
+
+  const uploadImage = async (): Promise<string | null> => {
+    if (!selectedFile) return formData.image_url || null;
+
+    setUploading(true);
+    try {
+      // Generate unique filename
+      const fileExt = selectedFile.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      // Upload to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from('project_images')
+        .upload(filePath, selectedFile, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) {
+        console.error("Upload error:", error);
+        throw error;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('project_images')
+        .getPublicUrl(data.path);
+
+      return publicUrl;
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image");
+      return null;
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.title || !formData.description || !formData.image_url) {
+    if (!formData.title || !formData.description) {
       toast.error("Please fill in all required fields");
       return;
     }
 
+    if (!selectedFile && !formData.image_url && !previewUrl) {
+      toast.error("Please upload an image or provide an image URL");
+      return;
+    }
+
     try {
+      // Upload image if a new file is selected
+      let imageUrl = formData.image_url;
+      if (selectedFile) {
+        const uploadedUrl = await uploadImage();
+        if (!uploadedUrl) {
+          toast.error("Failed to upload image");
+          return;
+        }
+        imageUrl = uploadedUrl;
+      }
+
+      const projectData = {
+        ...formData,
+        image_url: imageUrl,
+      };
+
       if (editingProject) {
-        await api.projects.update(editingProject.id, formData);
+        await api.projects.update(editingProject.id, projectData);
         toast.success("Project updated successfully");
       } else {
         await api.projects.create({
-          ...formData,
+          ...projectData,
           completion_date: null,
         });
         toast.success("Project created successfully");
@@ -302,28 +404,71 @@ export default function AdminProjects() {
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="image_url">
-                  Image URL <span className="text-red-500">*</span>
+                <Label htmlFor="image">
+                  Project Image <span className="text-red-500">*</span>
                 </Label>
-                <Input
-                  id="image_url"
-                  value={formData.image_url}
-                  onChange={(e) =>
-                    setFormData({ ...formData, image_url: e.target.value })
-                  }
-                  placeholder="https://example.com/image.jpg"
-                  required
-                />
-                {formData.image_url && (
-                  <img
-                    src={formData.image_url}
-                    alt="Preview"
-                    className="w-full h-48 object-cover rounded-lg mt-2"
-                    onError={(e) => {
-                      e.currentTarget.src = "https://via.placeholder.com/400x300";
+                
+                {/* Image Upload Area */}
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-[#2AA7C6] transition-colors">
+                  {previewUrl ? (
+                    <div className="relative">
+                      <img
+                        src={previewUrl}
+                        alt="Preview"
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 right-2"
+                        onClick={handleRemoveImage}
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <label
+                      htmlFor="image-upload"
+                      className="flex flex-col items-center justify-center cursor-pointer py-8"
+                    >
+                      <Upload className="w-12 h-12 text-gray-400 mb-2" />
+                      <p className="text-sm text-gray-600 mb-1">
+                        Click to upload or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        PNG, JPG, JPEG, WebP or GIF (max 5MB)
+                      </p>
+                      <input
+                        id="image-upload"
+                        type="file"
+                        accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
+                        onChange={handleFileSelect}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
+
+                {/* Optional: Image URL input as alternative */}
+                <div className="mt-2">
+                  <Label htmlFor="image_url" className="text-sm text-gray-600">
+                    Or enter image URL
+                  </Label>
+                  <Input
+                    id="image_url"
+                    value={formData.image_url}
+                    onChange={(e) => {
+                      setFormData({ ...formData, image_url: e.target.value });
+                      if (e.target.value) {
+                        setPreviewUrl(e.target.value);
+                        setSelectedFile(null);
+                      }
                     }}
+                    placeholder="https://example.com/image.jpg"
+                    className="mt-1"
                   />
-                )}
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -391,11 +536,18 @@ export default function AdminProjects() {
               </div>
             </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={handleCloseDialog}>
+              <Button type="button" variant="outline" onClick={handleCloseDialog} disabled={uploading}>
                 Cancel
               </Button>
-              <Button type="submit">
-                {editingProject ? "Update Project" : "Create Project"}
+              <Button type="submit" disabled={uploading}>
+                {uploading ? (
+                  <>
+                    <Upload className="w-4 h-4 mr-2 animate-spin" />
+                    Uploading...
+                  </>
+                ) : (
+                  editingProject ? "Update Project" : "Create Project"
+                )}
               </Button>
             </DialogFooter>
           </form>

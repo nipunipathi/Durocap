@@ -103,7 +103,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
   - Order volume statistics (monthly/quarterly comparisons)
   - Product category performance analysis
   - Customer acquisition trends
-- **Project Portfolio Management**: Add, edit, and delete project showcase images and descriptions
+- **Project Portfolio Management**: Add, edit, and delete project showcase images in PNG format with descriptions and metadata
 - **Customer Inquiry Management**: Review and respond to customer inquiries from contact forms
 - **Homepage Carousel Management**: Add, edit, delete, and reorder carousel slides with image upload, overlay text editing, and call-to-action button configuration
 \n### 2.11 Projects Section Enhancement
@@ -171,7 +171,6 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Login and registration pages with centered vertical layout, form card positioned in middle of viewport with AI-generated background image
 - Product list page with sidebar filters and main content area for product grid\n- Cart page with two-column layout: item list on left, order summary on right (stacked on mobile)
 - Payment page with step-by-step form layout, progress indicator at top showing current step
-
-## 5. Reference Images
-- Screenshot 2025-11-21 085459.png\n- MainLogo.png
+\n## 5. Reference Images
+- Screenshot2025-11-21 085459.png\n- MainLogo.png
 - HeroImage.jpg
