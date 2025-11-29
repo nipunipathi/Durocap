@@ -10,6 +10,7 @@ import { api } from "@/db/api";
 import type { Product, Service } from "@/types";
 import { cartUtils } from "@/lib/cart";
 import { toast } from "sonner";
+import SEO from "@/components/common/SEO";
 
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
@@ -45,7 +46,15 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <>
+      <SEO 
+        title="Durocap Roofing Solutions | Roofing Sheets & Accessories Kerala"
+        description="Trusted roofing sheet suppliers in Kerala. We deliver durable roofing materials, accessories, and custom roofing solutions for homes and commercial buildings."
+        keywords="Roofing Kerala, Roofing sheets, Metal roofing, Durocap, Roofing solutions India, Roofing materials thiruvanthapuram, TVM"
+        ogUrl="https://durocap.com/"
+        canonical="https://durocap.com/"
+      />
+      <div className="min-h-screen">
       <section className="relative min-h-screen xl:h-screen flex items-stretch overflow-hidden">
         <div className="w-full xl:grid xl:grid-cols-2 xl:gap-0">
           <div className="flex items-center justify-center px-8 xl:px-28 py-20 xl:py-0 min-h-[600px] xl:min-h-screen border-solid bg-cover bg-center bg-no-repeat border-[0px] border-[rgb(218,226,231)] bg-[#ffffff] bg-none">
@@ -432,5 +441,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }

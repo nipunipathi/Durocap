@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { api } from "@/db/api";
 import { toast } from "sonner";
+import SEO from "@/components/common/SEO";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -57,7 +58,15 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEO 
+        title="Contact Us | Durocap Roofing Solutions Kerala"
+        description="Get in touch with Durocap Roofing Solutions for expert roofing services in Kerala. Contact us for quotes, consultations, and roofing solutions."
+        keywords="Contact Durocap, Roofing consultation Kerala, Roofing quotes TVM, Roofing contractor contact"
+        ogUrl="https://durocap.com/contact"
+        canonical="https://durocap.com/contact"
+      />
+      <div className="min-h-screen bg-background">
       <section className="bg-primary text-primary-foreground py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl xl:text-5xl font-bold mb-4">Contact DuroCap</h1>
@@ -208,5 +217,6 @@ export default function Contact() {
         </div>
       </section>
     </div>
+    </>
   );
 }

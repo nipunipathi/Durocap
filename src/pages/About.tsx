@@ -1,9 +1,18 @@
 import { CheckCircle, Award, Users, Target } from "lucide-react";
 import BackButton from "@/components/common/BackButton";
+import SEO from "@/components/common/SEO";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEO 
+        title="About Us | Durocap Roofing Solutions Kerala"
+        description="Learn about Durocap Roofing Solutions - trusted roofing company in Kerala since 2015. Quality, durability, and innovation in roofing for commercial and residential projects."
+        keywords="About Durocap, Roofing company Kerala, Roofing contractor TVM, Professional roofing services"
+        ogUrl="https://durocap.com/about"
+        canonical="https://durocap.com/about"
+      />
+      <div className="min-h-screen bg-background">
       <section className="bg-primary text-primary-foreground py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl xl:text-5xl font-bold mb-4">About DuroCap Roofing Solutions</h1>
@@ -107,5 +116,6 @@ export default function About() {
         </div>
       </section>
     </div>
+    </>
   );
 }

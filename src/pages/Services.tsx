@@ -4,6 +4,7 @@ import { ServiceCard } from "@/components/cards/ServiceCard";
 import { api } from "@/db/api";
 import type { Service } from "@/types";
 import { toast } from "sonner";
+import SEO from "@/components/common/SEO";
 
 export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
@@ -26,7 +27,15 @@ export default function Services() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background py-12">
+    <>
+      <SEO 
+        title="Roofing Services | Durocap Roofing Solutions Kerala"
+        description="Professional roofing services in Kerala including installation, repair, maintenance, waterproofing, and custom roofing solutions for residential and commercial buildings."
+        keywords="Roofing services Kerala, Roof installation, Roof repair, Waterproofing Kerala, Commercial roofing TVM"
+        ogUrl="https://durocap.com/services"
+        canonical="https://durocap.com/services"
+      />
+      <div className="min-h-screen bg-background py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <BackButton />
         <div className="mb-12 text-center">
@@ -62,5 +71,6 @@ export default function Services() {
         )}
       </div>
     </div>
+    </>
   );
 }

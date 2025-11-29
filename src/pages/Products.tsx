@@ -6,6 +6,7 @@ import { cartUtils } from "@/lib/cart";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import BackButton from "@/components/common/BackButton";
+import SEO from "@/components/common/SEO";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -43,7 +44,15 @@ export default function Products() {
     : products.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-background py-12">
+    <>
+      <SEO 
+        title="Roofing Products | Durocap Roofing Solutions Kerala"
+        description="Browse our comprehensive selection of roofing products including tiles, shingles, membranes, gutters, insulation materials, and waterproofing solutions in Kerala."
+        keywords="Roofing products Kerala, Roofing tiles, Roofing shingles, Metal roofing sheets, Gutters Kerala, Roofing materials TVM"
+        ogUrl="https://durocap.com/products"
+        canonical="https://durocap.com/products"
+      />
+      <div className="min-h-screen bg-background py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <BackButton />
         <div className="mb-8">
@@ -88,5 +97,6 @@ export default function Products() {
         )}
       </div>
     </div>
+    </>
   );
 }
