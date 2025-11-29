@@ -182,37 +182,91 @@ export default function Cart() {
                     <p className="text-sm text-muted-foreground">
                       Pay securely with Razorpay - supports UPI, cards, net banking, and wallets.
                     </p>
-                    <RazorpayPaymentFlow
-                      cartItems={cart}
-                      totalAmount={total}
-                      currency="USD"
-                      onSuccess={() => {
-                        setCart([]);
-                      }}
-                    />
+                    {!user ? (
+                      <div className="space-y-4">
+                        <div className="bg-muted/50 border border-border rounded-lg p-4 text-center">
+                          <p className="text-sm font-medium mb-2">Sign in required</p>
+                          <p className="text-xs text-muted-foreground mb-4">
+                            Please sign in or create an account to proceed with payment
+                          </p>
+                          <Button
+                            onClick={() => navigate("/login", { state: { from: "/cart" } })}
+                            className="w-full"
+                            size="lg"
+                          >
+                            Sign In to Continue
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <RazorpayPaymentFlow
+                        cartItems={cart}
+                        totalAmount={total}
+                        currency="USD"
+                        onSuccess={() => {
+                          setCart([]);
+                        }}
+                      />
+                    )}
                   </TabsContent>
 
                   <TabsContent value="online" className="space-y-4">
                     <p className="text-sm text-muted-foreground">
                       Pay securely with credit card, debit card, or other payment methods via Stripe.
                     </p>
-                    <Button
-                      onClick={handleCheckout}
-                      disabled={loading}
-                      className="w-full"
-                      size="lg"
-                    >
-                      {loading ? "Processing..." : "Proceed to Checkout"}
-                    </Button>
+                    {!user ? (
+                      <div className="space-y-4">
+                        <div className="bg-muted/50 border border-border rounded-lg p-4 text-center">
+                          <p className="text-sm font-medium mb-2">Sign in required</p>
+                          <p className="text-xs text-muted-foreground mb-4">
+                            Please sign in or create an account to proceed with payment
+                          </p>
+                          <Button
+                            onClick={() => navigate("/login", { state: { from: "/cart" } })}
+                            className="w-full"
+                            size="lg"
+                          >
+                            Sign In to Continue
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <Button
+                        onClick={handleCheckout}
+                        disabled={loading}
+                        className="w-full"
+                        size="lg"
+                      >
+                        {loading ? "Processing..." : "Proceed to Checkout"}
+                      </Button>
+                    )}
                   </TabsContent>
 
                   <TabsContent value="qr" className="space-y-4">
-                    <div className="bg-muted/30 rounded-lg p-4 text-center">
-                      <div className="bg-white p-4 rounded-lg inline-block mb-3">
-                        <img
-                          src="https://miaoda-edit-image.s3cdn.medo.dev/7p9lig9vkiyp/IMG-7pbx0jt1e0ow.png"
-                          alt="Payment QR Code"
-                          className="w-48 h-48 mx-auto"
+                    {!user ? (
+                      <div className="space-y-4">
+                        <div className="bg-muted/50 border border-border rounded-lg p-4 text-center">
+                          <p className="text-sm font-medium mb-2">Sign in required</p>
+                          <p className="text-xs text-muted-foreground mb-4">
+                            Please sign in or create an account to proceed with payment
+                          </p>
+                          <Button
+                            onClick={() => navigate("/login", { state: { from: "/cart" } })}
+                            className="w-full"
+                            size="lg"
+                          >
+                            Sign In to Continue
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="bg-muted/30 rounded-lg p-4 text-center">
+                          <div className="bg-white p-4 rounded-lg inline-block mb-3">
+                            <img
+                              src="https://miaoda-edit-image.s3cdn.medo.dev/7p9lig9vkiyp/IMG-7pbx0jt1e0ow.png"
+                              alt="Payment QR Code"
+                              className="w-48 h-48 mx-auto"
                           onError={(e) => {
                             e.currentTarget.src = "https://via.placeholder.com/192x192?text=QR+Code";
                           }}
@@ -241,20 +295,10 @@ export default function Cart() {
                     >
                       I've Made the Payment
                     </Button>
+                  </>
+                )}
                   </TabsContent>
                 </Tabs>
-
-                {!user && (
-                  <p className="text-sm text-muted-foreground text-center">
-                    You can checkout as a guest or{" "}
-                    <button
-                      onClick={() => navigate("/login")}
-                      className="text-primary hover:underline"
-                    >
-                      sign in
-                    </button>
-                  </p>
-                )}
               </CardContent>
             </Card>
           </div>
