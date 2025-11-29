@@ -44,7 +44,8 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 
 ### 2.3 User Login Page
 - **Login Form**: Email/username and password input fields
-- **Remember Me**: Checkbox option to save login credentials\n- **Forgot Password**: Link to password recovery process
+- **Remember Me**: Checkbox option to save login credentials
+- **Forgot Password**: Link to password recovery process
 - **Sign Up Link**: Redirect to user registration page for new customers
 - **Google Sign In**: Quick login via OSS Google login method with'Sign in with Google' button displaying Google logo
 - **Security**: Input validation and encrypted password transmission
@@ -76,7 +77,8 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - **Empty Cart State**: Display message and 'Browse Products' button when cart is empty
 - **Save for Later**: Option to move items to wishlist or saved items section
 
-### 2.8 Payment Page\n- **Order Summary**: Display final list of items, quantities, prices in selected currency, and total amount
+### 2.8 Payment Page
+- **Order Summary**: Display final list of items, quantities, prices in selected currency, and total amount
 - **Shipping Information**: Form to enter or confirm delivery address (name, phone, address, city, postal code)\n- **Billing Information**: Option to use same as shipping address or enter different billing address
 - **Payment Method Selection**: Choose from available payment options (credit/debit card, QR code payment, digital wallet)\n- **QR Code Payment**: Display QR code for scanning with mobile payment apps (WeChat Pay, Alipay, etc.)
 - **Credit Card Form**: Secure input fields for card number, expiration date, CVV, and cardholder name
@@ -107,7 +109,18 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Display '100+ Successful Projects' headline with prominent visibility
 - Interactive image gallery showcasing completed roofing projects\n- Hover effects on project images: zoom-in animation (1.1x scale) with smooth transition
 - Project images displayed in grid layout with overlay information on hover
-- 'See more' button linking to full Projects page\n- Use Screenshot2025-11-21085459.png as reference for project showcase styling
+- 'See more' button linking to full Projects page\n- Use Screenshot2025-11-21 085459.png as reference for project showcase styling
+
+### 2.12 Homepage Carousel Feature
+- **Carousel/Slider Component**: Auto-rotating image carousel positioned prominently on landing page below header navigation
+- **Carousel Images**: Display multiple high-quality images showcasing roofing projects, products, and services
+- **Auto-Play**: Automatic slide transition every 5-7 seconds with smooth fade or slide animation
+- **Navigation Controls**: Left/right arrow buttons for manual slide navigation
+- **Indicator Dots**: Bottom indicator dots showing current slide position and allowing direct slide selection
+- **Pause on Hover**: Carousel pauses automatic rotation when user hovers over images
+- **Responsive Design**: Carousel adapts to different screen sizes (full-width on desktop, optimized for mobile)
+- **Optional Overlay Text**: Each slide can include overlay text with call-to-action buttons (e.g., 'View Products', 'Contact Us')
+- **Touch/Swipe Support**: Mobile users can swipe left/right to navigate slides
 
 ## 3. Product Categories
 - Roofing tiles and shingles
@@ -117,12 +130,11 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Roofing tools and accessories
 - Waterproofing solutions
 \n## 4. Design Style
-
-### 4.1 Color Scheme
+\n### 4.1 Color Scheme
 - Primary color: Deep teal blue (#2C5F7C) representing professionalism and trust
 - Secondary color: Bright cyan (#7DD3E8) for modern appeal and interactive elements
 - Accent color: Clean white (#FFFFFF) for contrast and clarity
-- Reference image: Screenshot2025-11-21 085459.png\n
+- Reference image: Screenshot 2025-11-21 085459.png\n
 ### 4.2 Visual Details
 - Smooth rounded corners (8px radius) for modern card-based layouts
 - Subtle shadow effects (04px 12px rgba(0,0,0,0.1)) for depth and hierarchy
@@ -133,10 +145,12 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Login and registration pages feature centered form cards with soft shadows and clean input fields
 - Google sign in/up buttons styled with official Google brand colors (white background, blue Google logo, dark text)
 - Currency selector styled as modern toggle switch or dropdown with flag icons
+- Carousel transitions with smooth fade or slide effects (0.5s duration)
 
 ### 4.3 Background Images
 - **AI-Generated Background Images**: Use AI-generated background images throughout the website to create modern, professional, and visually appealing atmosphere
 - **Homepage Hero Section**: AI-generated abstract gradient background with roofing-related geometric patterns, blending teal blue and cyan tones
+- **Homepage Carousel**: High-quality images of completed roofing projects, product showcases, and service highlights
 - **Login/Registration Pages**: Soft-focus AI-generated background featuring architectural elements and roofing textures with subtle overlay for form readability
 - **Product Pages**: Clean AI-generated backgrounds with subtle texture patterns related to construction and roofing materials
 - **About Us Page**: AI-generated background showcasing modern building silhouettes with sky gradient transitioning from deep blue to light cyan
@@ -146,6 +160,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 ### 4.4 Layout Approach
 - Grid-based product display with responsive card layouts
 - Hero section on homepage with animated call-to-action buttons using HeroImage.jpg
+- **Homepage carousel positioned below header navigation, spanning full viewport width**
 - Projects section with grid-based image gallery (3-4 columns on desktop, responsive on mobile)
 - Sticky navigation bar for easy access across pages with currency selector positioned in top-right corner
 - Visual hierarchy emphasizing product images and key information
@@ -154,3 +169,6 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Login and registration pages with centered vertical layout, form card positioned in middle of viewport with AI-generated background image
 - Product list page with sidebar filters and main content area for product grid\n- Cart page with two-column layout: item list on left, order summary on right (stacked on mobile)
 - Payment page with step-by-step form layout, progress indicator at top showing current step
+\n## 5. Reference Images
+- Screenshot 2025-11-21 085459.png\n- MainLogo.png
+- HeroImage.jpg
