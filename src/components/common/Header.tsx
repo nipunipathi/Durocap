@@ -47,9 +47,9 @@ const Header = () => {
   ];
 
   return (
-    <header className="text-primary-foreground shadow-lg sticky top-0 z-50 bg-[#0c0c0dff] bg-none">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#0c0c0dff] bg-none">
-        <div className="flex justify-between h-20 bg-[#0c0c0dff] bg-none">
+    <header className="bg-white shadow-sm sticky top-0 z-50">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <img 
@@ -60,15 +60,15 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="hidden xl:flex items-center space-x-2">
+          <div className="hidden xl:flex items-center space-x-1">
             {navigation.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-5 py-3 text-base font-bold rounded-lg transition-all ${
+                className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${
                   location.pathname === item.path
-                    ? "bg-secondary text-secondary-foreground shadow-lg scale-105"
-                    : "hover:bg-primary-light/80 hover:shadow-md hover:scale-105"
+                    ? "bg-[#2B79C2] text-white"
+                    : "text-gray-700 hover:bg-gray-100"
                 }`}
               >
                 {item.name}

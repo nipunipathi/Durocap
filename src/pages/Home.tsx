@@ -42,94 +42,71 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <section className="relative min-h-[800px] xl:min-h-[900px] flex items-center overflow-hidden bg-gradient-to-br from-[#2C5F7C] via-[#1e4a5f] to-[#0f2d3d]">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-[#7DD3E8] rounded-full blur-3xl opacity-20 animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-[#7DD3E8] rounded-full blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[#7DD3E8] rounded-full blur-3xl opacity-10 animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
-        
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMiI+PHBhdGggZD0iTTM2IDE2YzAtMS4xLS45LTItMi0yaC00Yy0xLjEgMC0yIC45LTIgMnY0YzAgMS4xLjkgMiAyIDJoNGMxLjEgMCAyLS45IDItMnYtNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30"></div>
-        
-        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
-            <div className="text-white space-y-10">
-              <div className="inline-block animate-fade-in">
-                <img 
-                  src="https://miaoda-conversation-file.s3cdn.medo.dev/user-7fwukq22idq8/conv-7p9lig9vkiyo/20251126/file-7tmweuqklfy9.png" 
-                  alt="DuroCap Roofing Solutions" 
-                  className="h-24 xl:h-32 w-auto mb-8 drop-shadow-2xl"
-                />
-              </div>
-              
-              <h1 className="text-5xl xl:text-7xl font-black leading-[1.1] tracking-tight animate-fade-in">
-                Trusted, Durable &<br/>
-                <span className="text-[#7DD3E8] drop-shadow-[0_0_30px_rgba(125,211,232,0.5)]">Affordable</span><br/>
-                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Roofing Solutions</span>
+      <section className="relative min-h-screen xl:h-screen flex items-stretch overflow-hidden">
+        <div className="w-full xl:grid xl:grid-cols-2 xl:gap-0">
+          <div className="bg-[#174B63] flex items-center justify-center px-8 xl:px-28 py-20 xl:py-0 min-h-[600px] xl:min-h-screen">
+            <div className="max-w-2xl w-full space-y-10 animate-fade-in">
+              <h1 className="text-4xl xl:text-6xl leading-tight font-serif text-white" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
+                We are <span className="text-[#2AA7C6]">DuroCap</span> — offering trusted, durable, and affordable roofing solutions for commercial and residential projects across Kerala.
               </h1>
               
-              <p className="text-xl xl:text-2xl text-gray-100 leading-relaxed font-medium animate-fade-in">
-                For commercial and residential projects across Kerala.<br/>
-                <span className="text-[#7DD3E8]">Protecting every structure</span> with lasting strength and trust.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-6 pt-6 animate-fade-in">
-                <Link to="/products" className="group">
+              <div className="flex flex-col sm:flex-row gap-5 pt-4">
+                <Link to="/about">
                   <Button 
                     size="lg" 
-                    className="w-full sm:w-auto bg-[#7DD3E8] hover:bg-[#6BC2D7] text-[#2C5F7C] font-black px-10 py-8 text-xl shadow-2xl hover:shadow-[0_20px_60px_rgba(125,211,232,0.4)] transition-all transform hover:scale-105 hover:-translate-y-1"
+                    className="w-full sm:w-auto bg-[#5ED4C4] hover:bg-[#4EC4B4] text-white font-bold px-10 py-6 text-lg rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
                   >
-                    Explore Products
-                    <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                    ABOUT US
                   </Button>
                 </Link>
-                <Link to="/contact" className="group">
+                <Link to="/services">
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="w-full sm:w-auto border-4 border-white text-white hover:bg-white hover:text-[#2C5F7C] font-black px-10 py-8 text-xl backdrop-blur-sm bg-white/10 hover:shadow-2xl transition-all transform hover:scale-105 hover:-translate-y-1"
+                    className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-[#174B63] font-bold px-10 py-6 text-lg rounded-lg bg-transparent transition-all transform hover:scale-105"
                   >
-                    Get Free Quote
+                    OUR SERVICES
                   </Button>
                 </Link>
               </div>
-              
-              <div className="grid grid-cols-3 gap-8 pt-12 border-t-2 border-white/30 animate-fade-in">
-                <div className="text-center transform hover:scale-110 transition-transform">
-                  <div className="text-5xl xl:text-6xl font-black text-[#7DD3E8] drop-shadow-lg mb-2">100+</div>
-                  <div className="text-sm xl:text-base text-gray-200 font-semibold">Projects Done</div>
-                </div>
-                <div className="text-center transform hover:scale-110 transition-transform">
-                  <div className="text-5xl xl:text-6xl font-black text-[#7DD3E8] drop-shadow-lg mb-2">15+</div>
-                  <div className="text-sm xl:text-base text-gray-200 font-semibold">Years Experience</div>
-                </div>
-                <div className="text-center transform hover:scale-110 transition-transform">
-                  <div className="text-5xl xl:text-6xl font-black text-[#7DD3E8] drop-shadow-lg mb-2">500+</div>
-                  <div className="text-sm xl:text-base text-gray-200 font-semibold">Happy Clients</div>
-                </div>
-              </div>
+            </div>
+          </div>
+          
+          <div className="hidden xl:flex bg-gradient-to-b from-[#CBE5F1] to-white relative items-start justify-center pt-28 min-h-screen overflow-hidden">
+            <div className="w-full max-w-xl px-12 mb-auto">
+              <img 
+                src="https://miaoda-conversation-file.s3cdn.medo.dev/user-7fwukq22idq8/conv-7p9lig9vkiyo/20251126/file-7tmweuqklfy9.png" 
+                alt="DuroCap Roofing Solutions" 
+                className="w-full h-auto drop-shadow-2xl animate-fade-in"
+              />
             </div>
             
-            <div className="hidden xl:block relative animate-fade-in">
-              <div className="relative z-10 transform hover:scale-105 transition-transform duration-500">
-                <div className="absolute -inset-4 bg-gradient-to-r from-[#7DD3E8] to-[#2C5F7C] rounded-3xl blur-2xl opacity-30"></div>
-                <img 
-                  src="https://miaoda-site-img.s3cdn.medo.dev/images/f710436e-7714-438f-ad5f-116cec1d437d.jpg" 
-                  alt="Professional Commercial Roofing Installation" 
-                  className="relative rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.5)] w-full h-auto border-4 border-white/20"
-                />
-                <div className="absolute -bottom-8 -left-8 bg-white rounded-2xl shadow-2xl p-8 max-w-sm transform hover:scale-105 transition-transform">
-                  <div className="flex items-center gap-5">
-                    <div className="bg-gradient-to-br from-[#7DD3E8] to-[#2C5F7C] rounded-2xl p-4 shadow-lg">
-                      <Shield className="w-10 h-10 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-black text-[#2C5F7C] text-2xl">Quality Assured</div>
-                      <div className="text-base text-gray-600 font-semibold">Premium Materials</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="absolute bottom-0 right-0 w-[95%] animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <img 
+                src="https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?w=1200&q=80" 
+                alt="Red ceramic tile roof with chimneys and skylights" 
+                className="w-full h-auto object-cover object-left"
+                style={{ maxHeight: '65vh' }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-3 gap-12 text-center">
+            <div className="transform hover:scale-110 transition-transform">
+              <div className="text-5xl xl:text-6xl font-black text-[#2AA7C6] mb-3">100+</div>
+              <div className="text-base text-gray-700 font-semibold">Successful Projects</div>
+            </div>
+            <div className="transform hover:scale-110 transition-transform">
+              <div className="text-5xl xl:text-6xl font-black text-[#2AA7C6] mb-3">15+</div>
+              <div className="text-base text-gray-700 font-semibold">Years Experience</div>
+            </div>
+            <div className="transform hover:scale-110 transition-transform">
+              <div className="text-5xl xl:text-6xl font-black text-[#2AA7C6] mb-3">500+</div>
+              <div className="text-base text-gray-700 font-semibold">Happy Clients</div>
             </div>
           </div>
         </div>
