@@ -173,4 +173,32 @@ declare global {
   }
 }
 
+export interface BrochureCategory {
+  id: string;
+  name: string;
+  description: string | null;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Brochure {
+  id: string;
+  category_id: string | null;
+  title: string;
+  description: string | null;
+  file_url: string;
+  file_name: string;
+  file_size: number | null;
+  thumbnail_url: string | null;
+  is_featured: boolean;
+  download_count: number;
+  view_count: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BrochureWithCategory extends Brochure {
+  category?: BrochureCategory | null;
+}
 

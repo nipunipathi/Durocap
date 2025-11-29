@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import type { Product, Service, Project, Order, ContactInquiry, Profile, Notification, RevenueStats } from "@/types";
+import type { Product, Service, Project, Order, ContactInquiry, Profile, Notification, RevenueStats, Brochure, BrochureCategory, BrochureWithCategory } from "@/types";
 
 export const api = {
   products: {
@@ -518,6 +518,172 @@ export const api = {
       }
 
       return response.data;
+    },
+  },
+
+  brochures: {
+    async getAll(categoryId?: string, featured?: boolean) {
+      let query = supabase
+        .from("brochures")
+        .select(`
+          *,
+          category:brochure_categories(*)
+        `)
+        .order("created_at", { ascending: false });
+
+      if (categoryId) {
+        query = query.eq("category_id", categoryId);
+      }
+
+      if (featured !== undefined) {
+        query = query.eq("is_featured", featured);
+      }
+
+      const { data, error } = await query;
+      if (error) throw error;
+      return Array.isArray(data) ? (data as BrochureWithCategory[]) : [];
+    },
+
+    async getById(id: string) {
+      const { data, error } = await supabase
+        .from("brochures")
+        .select(`
+          *,
+          category:brochure_categories(*)
+        `)
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      return data as BrochureWithCategory | null;
+    },
+
+    async search(searchTerm: string) {
+      const { data, error } = await supabase
+        .from("brochures")
+        .select(`
+          *,
+          category:brochure_categories(*)
+        `)
+        .or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return Array.isArray(data) ? (data as BrochureWithCategory[]) : [];
+    },
+
+    async create(brochure: Omit<Brochure, "id" | "created_at" | "updated_at" | "download_count" | "view_count">) {
+      const { data, error } = await supabase
+        .from("brochures")
+        .insert(brochure)
+        .select()
+        .maybeSingle();
+      if (error) throw error;
+      return data as Brochure;
+    },
+
+    async update(id: string, updates: Partial<Brochure>) {
+      const { data, error } = await supabase
+        .from("brochures")
+        .update({ ...updates, updated_at: new Date().toISOString() })
+        .eq("id", id)
+        .select()
+        .maybeSingle();
+      if (error) throw error;
+      return data as Brochure;
+    },
+
+    async delete(id: string) {
+      const { error } = await supabase
+        .from("brochures")
+        .delete()
+        .eq("id", id);
+      if (error) throw error;
+    },
+
+    async incrementDownloadCount(id: string) {
+      const { error } = await supabase.rpc("increment_download_count", {
+        brochure_id: id,
+      });
+      if (error) throw error;
+    },
+
+    async incrementViewCount(id: string) {
+      const { error } = await supabase.rpc("increment_view_count", {
+        brochure_id: id,
+      });
+      if (error) throw error;
+    },
+
+    async uploadFile(file: File, path: string) {
+      const { data, error } = await supabase.storage
+        .from("brochures")
+        .upload(path, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+      if (error) throw error;
+      
+      const { data: { publicUrl } } = supabase.storage
+        .from("brochures")
+        .getPublicUrl(data.path);
+      
+      return publicUrl;
+    },
+
+    async deleteFile(path: string) {
+      const { error } = await supabase.storage
+        .from("brochures")
+        .remove([path]);
+      if (error) throw error;
+    },
+  },
+
+  brochureCategories: {
+    async getAll() {
+      const { data, error } = await supabase
+        .from("brochure_categories")
+        .select("*")
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return Array.isArray(data) ? (data as BrochureCategory[]) : [];
+    },
+
+    async getById(id: string) {
+      const { data, error } = await supabase
+        .from("brochure_categories")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) throw error;
+      return data as BrochureCategory | null;
+    },
+
+    async create(category: Omit<BrochureCategory, "id" | "created_at" | "updated_at">) {
+      const { data, error } = await supabase
+        .from("brochure_categories")
+        .insert(category)
+        .select()
+        .maybeSingle();
+      if (error) throw error;
+      return data as BrochureCategory;
+    },
+
+    async update(id: string, updates: Partial<BrochureCategory>) {
+      const { data, error } = await supabase
+        .from("brochure_categories")
+        .update({ ...updates, updated_at: new Date().toISOString() })
+        .eq("id", id)
+        .select()
+        .maybeSingle();
+      if (error) throw error;
+      return data as BrochureCategory;
+    },
+
+    async delete(id: string) {
+      const { error } = await supabase
+        .from("brochure_categories")
+        .delete()
+        .eq("id", id);
+      if (error) throw error;
     },
   },
 };

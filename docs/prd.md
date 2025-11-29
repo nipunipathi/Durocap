@@ -1,4 +1,4 @@
-# Roofing Solutions E-Commerce Website Requirements Document
+# Durocap Roofing Solutions E-Commerce Website Requirements Document
 
 ## 1. Website Overview
 
@@ -15,6 +15,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Services
 - Projects
 - Contact Us
+- **Product Catalog / Brochure Library Page**
 - User Login Page
 - User Registration Page
 - User Page (User Profile + Cart + Payment)
@@ -34,29 +35,32 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - User profile management
 - Cart management and checkout\n- QR code payment processing
 - **Currency conversion switch between USD and INR with real-time price display**
-
-### 2.2 SEO Optimization Features
+- **Product Brochure Library with PDF viewing and downloading capabilities**
+\n### 2.2 SEO Optimization Features
 \n#### 2.2.1 Meta Tags & Page Titles
 - **Home Page**:\n  - Title: 'Durocap Roofing Solutions | Roofing Sheets & Accessories Kerala'
   - Meta Description: 'Trusted supplier of roofing sheets, accessories and custom roofing solutions across Kerala. Durable, affordable and delivered on time. Contact Durocap Roofing Solutions today.'
   - Meta Keywords: 'roofing Kerala, roofing sheets, metal roofing, commercial roofing, Durocap'\n  - Meta Robots: 'index, follow'
 \n- **About Page**:
   - Title: 'About Durocap Roofing Solutions | Trusted Roofing Supplier in Kerala'
-  - Meta Description: Custom description highlighting company history, values, and expertise in roofing solutions
-\n- **Contact Page**:
+  - Meta Description: Custom description highlighting company history, values, and expertise in roofing solutions\n\n- **Contact Page**:
   - Title: 'Contact Durocap Roofing Solutions | Request a Quote'
   - Meta Description: Contact information and inquiry form details
 
 - **Services Page**:
   - Title: 'Roofing Services Kerala | Commercial & Residential Solutions'
-  - Meta Description: Comprehensive roofing services description
-
+  - Meta Description: Comprehensive roofing services description\n
 - **Products Page**:
   - Title: 'Roofing Products & Materials | Durocap Kerala'
   - Meta Description: Product catalog overview\n
 - **Projects Page**:
   - Title: 'Completed Roofing Projects | Durocap Portfolio Kerala'
   - Meta Description: Showcase of successful roofing installations
+
+- **Product Catalog Page**:
+  - Title: 'Roofing Product Brochures & Catalogs | Durocap Kerala'
+  - Meta Description:'Download roofing product brochures, technical specifications, and installation guides. Complete catalog of roofing sheets, accessories, and materials.'
+- Meta Keywords: 'roofing brochures Kerala, product catalog, roofing specifications, installation guides'
 
 #### 2.2.2 Robots.txt Configuration
 - Create robots.txt file at site root (https://durocap.com/robots.txt)
@@ -74,7 +78,9 @@ A professional e-commerce platform specializing in roofing solutions, providing 
   - Products: priority 0.9, changefreq weekly
   - Projects: priority 0.7, changefreq monthly
   - Contact: priority 0.6, changefreq monthly
+  - **Product Catalog: priority 0.8, changefreq weekly**
 - Auto-update sitemap when new pages or products are added
+- **Include PDF brochures in sitemap for SEO indexing**
 
 #### 2.2.4 Structured Data (JSON-LD)
 - Add Organization schema to Home page:\n  ```json
@@ -92,12 +98,14 @@ A professional e-commerce platform specializing in roofing solutions, providing 
     },
     'telephone': '+91-XXXXXXXXXX'\n  }
   ```\n- Add Product schema for product pages\n- Add BreadcrumbList schema for navigation
+- **Add DigitalDocument schema for PDF brochures to enable Google indexing of PDF content**
 
 #### 2.2.5 Google Search Console Integration
 - Support for Domain property verification via DNS TXT record
 - Support for URL prefix verification methods (HTML file, HTML tag, DNS)\n- Sitemap submission capability to Google Search Console
 - URL inspection and indexing request functionality
 - Crawl error monitoring and reporting
+- **PDF indexing monitoring and performance tracking**
 
 #### 2.2.6 SEO-Friendly URLs
 - Clean, descriptive URLs for all pages
@@ -108,42 +116,42 @@ A professional e-commerce platform specializing in roofing solutions, providing 
   - https://durocap.com/projects
   - https://durocap.com/contact
   - https://durocap.com/products/[product-name]
+  - **https://durocap.com/catalog**
+  - **https://durocap.com/catalog/[category-name]**
 
 #### 2.2.7 Canonical URLs
 - Implement canonical tags to prevent duplicate content issues
 - Handle www vs non-www versions properly
 - Set preferred domain version\n
 #### 2.2.8 Open Graph & Social Media Meta Tags
-- Add Open Graph tags for social media sharing:\n  - og:title\n  - og:description
+- Add Open Graph tags for social media sharing:\n  - og:title
+  - og:description
   - og:image
-  - og:url
-  - og:type
-- Add Twitter Card meta tags\n
-#### 2.2.9 Performance Optimization for SEO
-- Image optimization with alt tags
-- Lazy loading for images
-- Minified CSS and JavaScript
+  - og:url\n  - og:type
+- Add Twitter Card meta tags\n\n#### 2.2.9 Performance Optimization for SEO
+- Image optimization with alt tags\n- Lazy loading for images\n- Minified CSS and JavaScript
 - Fast page load times (target under 3 seconds)
 - Mobile-responsive design
 - SSL certificate (HTTPS)
+- **PDF optimization for fast loading and mobile viewing**
 
 #### 2.2.10 Admin SEO Management Dashboard
 - Interface to edit meta titles and descriptions for all pages
 - Sitemap regeneration tool
 - SEO checklist and recommendations
-- Google Search Console integration dashboard showing:
-  - Indexing status
-  - Search performance metrics
+- Google Search Console integration dashboard showing:\n  - Indexing status\n  - Search performance metrics
   - Crawl errors
   - Sitemap submission status
+- **PDF brochure SEO analytics showing download counts and search performance**
 
 ### 2.3 Currency Conversion Feature
 - **Currency Selector**: Dropdown or toggle switch in website header to select between USD and INR
 - **Real-Time Conversion**: All product prices, cart totals, and payment amounts automatically convert based on selected currency
-- **Currency Symbol Display**: Show ₹ symbol for INR and $ symbol for USD throughout the website
+- **Currency Symbol Display**: Show₹ symbol for INR and $ symbol for USD throughout the website
 - **Persistent Selection**: Remember user's currency preference across browsing session
 - **Conversion Rate**: Use current exchange rate for accurate price conversion
-- **Display Format**: INR prices formatted as ₹X,XXX.XX and USD prices as $X,XXX.XX\n
+- **Display Format**: INR prices formatted as ₹X,XXX.XX and USD prices as $X,XXX.XX
+
 ### 2.4 User Login Page
 - **Login Form**: Email/username and password input fields
 - **Remember Me**: Checkbox option to save login credentials
@@ -158,13 +166,12 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - **Google Sign Up**: Quick registration via OSS Google login method with 'Sign up with Google' button displaying Google logo
 - **Terms Agreement**: Checkbox to agree to terms and conditions before registration
 - **Already Have Account**: Link to redirect existing users to login page
-
-### 2.6 User Page Features
+\n### 2.6 User Page Features
 - **User Profile Section**: Display and edit user information including name, email, phone number, shipping address, and order history
 - **Cart Section**: View cart items, adjust quantities, remove items, view subtotal and total amounts in selected currency
 - **Payment Section**: Complete checkout with Razorpay payment gateway and QR code payment option for secure transactions, amounts displayed in selected currency
 \n### 2.7 Product List Page
-- **Product Grid Display**: Products displayed in responsive grid layout (3-4 columns on desktop, 2 columns on tablet, 1 column on mobile)\n- **Product Cards**: Each card shows product image, name, price in selected currency (USD/INR), brief description, and 'Add to Cart' button
+- **Product Grid Display**: Products displayed in responsive grid layout (3-4 columns on desktop, 2columns on tablet, 1 column on mobile)\n- **Product Cards**: Each card shows product image, name, price in selected currency (USD/INR), brief description, and 'Add to Cart' button
 - **Category Filter**: Sidebar or top filter bar to filter products by category (roofing tiles, membranes, gutters, insulation, tools, waterproofing)\n- **Search Bar**: Search functionality to find products by name or keyword
 - **Sort Options**: Sort products by price (low to high, high to low), name (A-Z, Z-A), or popularity\n- **Pagination**: Navigate through multiple pages of products with page numbers and next/previous buttons
 - **Quick View**: Hover or click to view product details in modal popup without leaving the page
@@ -230,12 +237,13 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - **Customer Inquiry Management**: Review and respond to customer inquiries from contact forms
 - **Homepage Carousel Management**: Add, edit, delete, and reorder carousel slides with image upload, overlay text editing, and call-to-action button configuration
 - **SEO Management Dashboard**: Edit meta tags, manage sitemap, view Google Search Console integration data, and access SEO recommendations
+- **Brochure Library Management**: Comprehensive PDF brochure management system (detailed in section 2.14)
 \n### 2.12 Projects Section Enhancement
 - Display '100+ Successful Projects' headline with prominent visibility
 - Interactive image gallery showcasing completed roofing projects
 - Hover effects on project images: zoom-in animation (1.1x scale) with smooth transition
 - Project images displayed in grid layout with overlay information on hover
-- 'See more' button linking to full Projects page\n- Use Screenshot2025-11-21 085459.png as reference for project showcase styling
+- 'See more' button linking to full Projects page\n- Use Screenshot2025-11-21085459.png as reference for project showcase styling
 
 ### 2.13 Homepage Carousel Feature
 - **Carousel/Slider Component**: Auto-rotating image carousel positioned prominently on landing page below header navigation
@@ -249,18 +257,113 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - **Touch/Swipe Support**: Mobile users can swipe left/right to navigate slides
 - **Admin Editable**: Carousel content (images, overlay text, buttons, slide order) can be fully managed through Admin Dashboard
 
-## 3. Product Categories\n- Roofing tiles and shingles
+### 2.14 Product Brochure Library / Catalog Feature
+\n#### 2.14.1 Customer-Facing Brochure Library Page
+- **Dedicated Catalog Page**: Accessible via main navigation menu under 'Products' or 'Catalog' or 'Downloads'
+- **Page Layout**: Grid-based layout displaying brochure cards with thumbnail preview, category label, product name, and action buttons
+- **Brochure Card Display**: Each card shows:\n  - PDF thumbnail or cover image preview
+  - Product category badge (e.g., Roofing Sheets, Accessories, Installation Guides)
+  - Brochure title/product name
+  - File size and page count
+  - Last updated date
+  - 'View' button to open PDF in-page viewer
+  - 'Download' button to save PDF locally
+  - 'Request Quote' button linking to contact form with pre-filled product information
+  - 'Share on WhatsApp' button for easy sharing
+\n#### 2.14.2 PDF Viewing and Download\n- **In-Page PDF Viewer**: Embedded PDF viewer allowing users to read brochures without leaving the website
+- **PDF Viewer Features**:
+  - Page navigation (next/previous, jump to page)
+  - Zoom in/out controls
+  - Full-screen mode
+  - Print option
+  - Search within PDF content
+  - Mobile-optimized touch gestures for scrolling and zooming
+- **Download Functionality**: One-click download button to save PDF to user's device
+- **Download Tracking**: System tracks download counts for analytics
+\n#### 2.14.3 Search and Filter Functionality
+- **Search Bar**: Search brochures by product name, category, or keywords within PDF content
+- **Category Filter**: Dropdown or sidebar filter to display brochures by category:\n  - Roofing Sheets
+  - Accessories
+  - Fixing Materials
+  - Installation Guides
+  - Warranty Documents
+  - Technical Specifications
+  - Other categories as needed
+- **Sort Options**: Sort brochures by:\n  - Most recent (newest first)
+  - Most downloaded (popularity)
+  - Alphabetical (A-Z, Z-A)
+  - File size\n- **Featured Products Section**: Highlight selected brochures at top of page with'Featured' badge
+\n#### 2.14.4 Lead Generation Integration
+- **Request Quote Button**: Each brochure card includes 'Request Quote' button\n- **Pre-Filled Contact Form**: Clicking 'Request Quote' opens contact form with product name and brochure details automatically filled
+- **WhatsApp Share**:'Share on WhatsApp' button generates shareable link with product information
+- **Email Inquiry**: Option to email brochure link directly to customer or sales team
+
+#### 2.14.5 Mobile Responsiveness
+- **Mobile-Optimized Layout**: Brochure cards stack vertically on mobile devices
+- **Touch-Friendly PDF Viewer**: Swipe gestures for page navigation, pinch-to-zoom for PDF viewing
+- **Fast Loading**: Optimized PDF file sizes for quick mobile loading
+- **Offline Access**: Option to save brochures for offline viewing (browser-dependent)
+
+#### 2.14.6 Admin Brochure Management Dashboard
+- **Upload New Brochure**: Admin interface to upload PDF files with drag-and-drop or file browser
+- **Brochure Details Form**: When uploading, admin fills in:
+  - Brochure title/product name
+  - Category selection (dropdown)
+  - Description/summary (optional)
+  - Thumbnail image upload (auto-generated from PDF first page or custom upload)
+  - Featured status (checkbox to mark as featured)
+  - Tags/keywords for search optimization
+- **Edit Existing Brochures**: Modify brochure details, replace PDF file, update thumbnail, change category
+- **Delete Brochures**: Remove outdated brochures with confirmation prompt
+- **Category Management**: Create, edit, delete brochure categories
+- **Bulk Upload**: Upload multiple PDF files at once with batch processing
+- **File Replacement**: Replace old brochure PDF without changing URL or breaking existing links
+- **Version Control**: Track brochure versions with upload date and admin user who uploaded
+
+#### 2.14.7 Analytics and Reporting
+- **Download Statistics**: View total downloads per brochure with date range filtering
+- **Most Popular Brochures**: Dashboard widget showing top 5 most downloaded brochures
+- **Search Analytics**: Track most searched keywords and products
+- **Quote Request Tracking**: Monitor how many quote requests originated from brochure page
+- **Traffic Source**: Identify which brochures drive most website traffic (via Google Analytics integration)
+- **PDF Performance Report**: Visual charts showing download trends over time
+
+#### 2.14.8 SEO Optimization for PDF Brochures
+- **PDF Metadata**: Each PDF includes proper metadata (title, author, keywords) for search engine indexing
+- **Structured Data for PDFs**: ImplementDigitalDocument schema markup for each brochure
+- **SEO-Friendly URLs**: Clean URLs for brochure pages (e.g., durocap.com/catalog/roofing-sheets-brochure)
+- **Alt Text for Thumbnails**: Descriptive alt text for brochure thumbnail images
+- **Sitemap Inclusion**: All brochure PDFs included in XML sitemap for Google indexing
+- **Google Search Console Monitoring**: Track PDF indexing status and search performance
+- **Content Indexing**: PDF text content indexed by search engines to improve keyword ranking
+- **Meta Descriptions**: Each brochure page has unique meta description for search results
+
+#### 2.14.9 File Storage and Hosting
+- **Cloud Storage Integration**: PDFs stored in secure cloud storage (AWS S3, Firebase Storage, or similar)
+- **CDN Delivery**: Content Delivery Network (CDN) for fast global PDF loading
+- **Secure Access**: PDFs served via HTTPS with secure public links
+- **File Size Optimization**: Compress PDFs without quality loss for faster loading
+- **Backup System**: Automatic backup of all uploaded brochures
+- **Storage Management**: Admin dashboard shows total storage used and available space
+
+#### 2.14.10 Multi-Language Support (Future-Ready)
+- **Language Selector**: Option to upload brochures in multiple languages (English, Hindi, Malayalam, etc.)
+- **Language Filter**: Users can filter brochures by language preference
+- **Localized Content**: Support for region-specific product catalogs
+\n## 3. Product Categories
+- Roofing tiles and shingles
 - Roofing membranes and underlayment
 - Gutters and drainage systems
 - Insulation materials
 - Roofing tools and accessories
 - Waterproofing solutions
-\n## 4. Design Style\n\n### 4.1 Color Scheme
+\n## 4. Design Style
+\n### 4.1 Color Scheme
 - Primary color: Deep teal blue (#2C5F7C) representing professionalism and trust
 - Secondary color: Bright cyan (#7DD3E8) for modern appeal and interactive elements
 - Accent color: Clean white (#FFFFFF) for contrast and clarity
 - Razorpay brand color: Blue (#528FF0) for payment buttons and badges
-- Reference image: Screenshot 2025-11-21 085459.png\n
+- Reference image: Screenshot2025-11-21 085459.png\n
 ### 4.2 Visual Details
 - Smooth rounded corners (8px radius) for modern card-based layouts
 - Subtle shadow effects (04px 12px rgba(0,0,0,0.1)) for depth and hierarchy
@@ -275,6 +378,12 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Carousel transitions with smooth fade or slide effects (0.5s duration)
 - Payment confirmation notifications styled with alert badge icons and highlighted background color
 - Admin confirmation buttons styled with green accent color for approve action and red for reject action
+- **Brochure cards with hover lift effect (translateY -4px) and shadow enhancement**
+- **PDF viewer modal with clean white background and teal accent controls**
+- **Download button styled with cyan color and download icon**
+- **Request Quote button with teal background and white text**
+- **Category filter badges with rounded pill shape and teal/cyan color scheme**
+- **Featured brochure badge with gold/yellow accent color**
 \n### 4.3 Background Images
 - **AI-Generated Background Images**: Use AI-generated background images throughout the website to create modern, professional, and visually appealing atmosphere
 - **Homepage Hero Section**: AI-generated abstract gradient background with roofing-related geometric patterns, blending teal blue and cyan tones
@@ -283,6 +392,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - **Product Pages**: Clean AI-generated backgrounds with subtle texture patterns related to construction and roofing materials
 - **About Us Page**: AI-generated background showcasing modern building silhouettes with sky gradient transitioning from deep blue to light cyan
 - **Admin Dashboard**: Minimalist AI-generated geometric pattern background in muted teal tones for professional workspace feel
+- **Brochure Library Page**: Light gradient background with subtle document/blueprint pattern in teal and white tones
 - **Background Style**: All AI-generated backgrounds should maintain consistent color palette (teal blue, cyan, white) and complement the overall design without overwhelming content
 
 ### 4.4 Layout Approach
@@ -297,8 +407,11 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Login and registration pages with centered vertical layout, form card positioned in middle of viewport with AI-generated background image
 - Product list page with sidebar filters and main content area for product grid\n- Cart page with two-column layout: item list on left, order summary on right (stacked on mobile)
 - Payment page with step-by-step form layout, progress indicator at top showing current step, Razorpay checkout modal integration, and prominent'I Have Made Payment' button for alternative payment methods
-
-## 5. Technical SEO Implementation Checklist
+- **Brochure Library page with grid layout (3 columns on desktop, 2 on tablet, 1 on mobile) displaying brochure cards**
+- **Sidebar filter panel on Brochure Library page for category selection and search**
+- **PDF viewer opens in full-screen modal overlay with close button and navigation controls**
+- **Admin brochure management section with table view listing all brochures with edit/delete actions**
+\n## 5. Technical SEO Implementation Checklist
 
 ### 5.1 On-Page SEO\n- [ ] Unique meta title and description for each page
 - [ ] Proper heading hierarchy (H1, H2, H3)
@@ -307,6 +420,8 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - [ ] Mobile-responsive design
 - [ ] Fast page load speed\n- [ ] HTTPS/SSL certificate
 - [ ] Clean URL structure
+- [ ] **PDF brochure metadata optimization**
+- [ ] **Brochure page meta tags and descriptions**
 \n### 5.2 Technical Setup
 - [ ] robots.txt file configured and accessible
 - [ ] XML sitemap generated and submitted
@@ -314,18 +429,25 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - [ ]404 error page customized
 - [ ] 301 redirects for changed URLs
 - [ ] Structured data (JSON-LD) implemented
+- [ ] **DigitalDocument schema for PDF brochures**
+- [ ] **PDF files included in XML sitemap**
 \n### 5.3 Google Integration
 - [ ] Google Search Console property verified
 - [ ] Sitemap submitted to Search Console
 - [ ] URL inspection and indexing requested
 - [ ] Google Analytics 4 connected (optional)
 - [ ] Google Business Profile created (optional)
+- [ ] **PDF indexing monitoring in Search Console**
+- [ ] **Brochure download tracking in Analytics**
 
 ### 5.4 Content Optimization
 - [ ] Keyword research for target pages
 - [ ] Unique content for each page (300+ words)
 - [ ] Product descriptions optimized
 - [ ] Blog/FAQ section for content marketing (optional)
-\n## 6. Reference Images
+- [ ] **PDF content optimization with relevant keywords**
+- [ ] **Brochure descriptions with SEO-friendly text**
+
+## 6. Reference Images
 - Screenshot 2025-11-21 085459.png\n- MainLogo.png
 - HeroImage.jpg
