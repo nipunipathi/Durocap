@@ -105,11 +105,12 @@ A professional e-commerce platform specializing in roofing solutions, providing 
   - Customer acquisition trends
 - **Project Portfolio Management**: Add, edit, and delete project showcase images and descriptions
 - **Customer Inquiry Management**: Review and respond to customer inquiries from contact forms
+- **Homepage Carousel Management**: Add, edit, delete, and reorder carousel slides with image upload, overlay text editing, and call-to-action button configuration
 \n### 2.11 Projects Section Enhancement
 - Display '100+ Successful Projects' headline with prominent visibility
 - Interactive image gallery showcasing completed roofing projects\n- Hover effects on project images: zoom-in animation (1.1x scale) with smooth transition
 - Project images displayed in grid layout with overlay information on hover
-- 'See more' button linking to full Projects page\n- Use Screenshot2025-11-21 085459.png as reference for project showcase styling
+- 'See more' button linking to full Projects page\n- Use Screenshot2025-11-21085459.png as reference for project showcase styling
 
 ### 2.12 Homepage Carousel Feature
 - **Carousel/Slider Component**: Auto-rotating image carousel positioned prominently on landing page below header navigation
@@ -121,6 +122,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - **Responsive Design**: Carousel adapts to different screen sizes (full-width on desktop, optimized for mobile)
 - **Optional Overlay Text**: Each slide can include overlay text with call-to-action buttons (e.g., 'View Products', 'Contact Us')
 - **Touch/Swipe Support**: Mobile users can swipe left/right to navigate slides
+- **Admin Editable**: Carousel content (images, overlay text, buttons, slide order) can be fully managed through Admin Dashboard
 
 ## 3. Product Categories
 - Roofing tiles and shingles
@@ -134,7 +136,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Primary color: Deep teal blue (#2C5F7C) representing professionalism and trust
 - Secondary color: Bright cyan (#7DD3E8) for modern appeal and interactive elements
 - Accent color: Clean white (#FFFFFF) for contrast and clarity
-- Reference image: Screenshot 2025-11-21 085459.png\n
+- Reference image: Screenshot2025-11-21 085459.png\n
 ### 4.2 Visual Details
 - Smooth rounded corners (8px radius) for modern card-based layouts
 - Subtle shadow effects (04px 12px rgba(0,0,0,0.1)) for depth and hierarchy
@@ -169,6 +171,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Login and registration pages with centered vertical layout, form card positioned in middle of viewport with AI-generated background image
 - Product list page with sidebar filters and main content area for product grid\n- Cart page with two-column layout: item list on left, order summary on right (stacked on mobile)
 - Payment page with step-by-step form layout, progress indicator at top showing current step
-\n## 5. Reference Images
+
+## 5. Reference Images
 - Screenshot 2025-11-21 085459.png\n- MainLogo.png
 - HeroImage.jpg

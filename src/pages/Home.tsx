@@ -14,17 +14,20 @@ import { toast } from "sonner";
 export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [services, setServices] = useState<Service[]>([]);
+  const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [productsData, servicesData] = await Promise.all([
+        const [productsData, servicesData, projectsData] = await Promise.all([
           api.products.getAll(true),
           api.services.getAll(true),
+          api.projects.getAll(true),
         ]);
         setFeaturedProducts(productsData.slice(0, 4));
         setServices(servicesData.slice(0, 6));
+        setFeaturedProjects(projectsData);
       } catch (error) {
         console.error("Error fetching data:", error);
         toast.error("Failed to load data");
@@ -141,110 +144,36 @@ export default function Home() {
             className="max-w-6xl mx-auto"
           >
             <CarouselContent>
-              <CarouselItem>
-                <div className="px-4">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-                    <img 
-                      src="https://miaoda-site-img.s3cdn.medo.dev/images/07c54199-47a7-4c7a-8ae8-d2dd6c3aaac9.jpg" 
-                      alt="Completed residential roofing project" 
-                      className="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-10 text-white">
-                      <h3 className="text-3xl font-black mb-3">Luxury Residential Project</h3>
-                      <p className="text-lg text-gray-200 mb-4">Premium tile roofing installation for a modern villa in Kochi</p>
-                      <div className="flex gap-4">
-                        <span className="bg-[#2AA7C6] px-4 py-2 rounded-full text-sm font-bold">Residential</span>
-                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold">2024</span>
+              {featuredProjects.map((project) => (
+                <CarouselItem key={project.id}>
+                  <div className="px-4">
+                    <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
+                      <img 
+                        src={project.image_url || 'https://via.placeholder.com/1200x500'} 
+                        alt={project.title} 
+                        className="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-10 text-white">
+                        <h3 className="text-3xl font-black mb-3">{project.title}</h3>
+                        <p className="text-lg text-gray-200 mb-4">{project.description}</p>
+                        <div className="flex gap-4">
+                          {project.category && (
+                            <span className="bg-[#2AA7C6] px-4 py-2 rounded-full text-sm font-bold">
+                              {project.category}
+                            </span>
+                          )}
+                          {project.year && (
+                            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold">
+                              {project.year}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </CarouselItem>
-
-              <CarouselItem>
-                <div className="px-4">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-                    <img 
-                      src="https://miaoda-site-img.s3cdn.medo.dev/images/681ebb11-2fb7-4e60-a7e4-c4ebfbf35311.jpg" 
-                      alt="Commercial building roofing project" 
-                      className="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-10 text-white">
-                      <h3 className="text-3xl font-black mb-3">Commercial Complex Roofing</h3>
-                      <p className="text-lg text-gray-200 mb-4">Large-scale commercial roofing installation in Trivandrum</p>
-                      <div className="flex gap-4">
-                        <span className="bg-[#2AA7C6] px-4 py-2 rounded-full text-sm font-bold">Commercial</span>
-                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold">2024</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-
-              <CarouselItem>
-                <div className="px-4">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-                    <img 
-                      src="https://miaoda-site-img.s3cdn.medo.dev/images/6c985edd-e826-4844-9227-7b8207934a06.jpg" 
-                      alt="Luxury home roofing project" 
-                      className="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-10 text-white">
-                      <h3 className="text-3xl font-black mb-3">Premium Villa Roofing</h3>
-                      <p className="text-lg text-gray-200 mb-4">High-end roofing solution for luxury villa in Calicut</p>
-                      <div className="flex gap-4">
-                        <span className="bg-[#2AA7C6] px-4 py-2 rounded-full text-sm font-bold">Luxury</span>
-                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold">2024</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-
-              <CarouselItem>
-                <div className="px-4">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-                    <img 
-                      src="https://miaoda-site-img.s3cdn.medo.dev/images/6c7ec46e-a800-46c5-ae7e-4c7ee2e945b0.jpg" 
-                      alt="Modern house roofing aerial view" 
-                      className="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-10 text-white">
-                      <h3 className="text-3xl font-black mb-3">Modern Residential Roofing</h3>
-                      <p className="text-lg text-gray-200 mb-4">Contemporary roofing design for modern home in Thrissur</p>
-                      <div className="flex gap-4">
-                        <span className="bg-[#2AA7C6] px-4 py-2 rounded-full text-sm font-bold">Modern</span>
-                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold">2024</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-
-              <CarouselItem>
-                <div className="px-4">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-                    <img 
-                      src="https://miaoda-site-img.s3cdn.medo.dev/images/a9330262-e912-455e-bc79-512efa5267c4.jpg" 
-                      alt="Industrial roofing project" 
-                      className="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-10 text-white">
-                      <h3 className="text-3xl font-black mb-3">Industrial Roofing Solution</h3>
-                      <p className="text-lg text-gray-200 mb-4">Heavy-duty industrial roofing installation in Ernakulam</p>
-                      <div className="flex gap-4">
-                        <span className="bg-[#2AA7C6] px-4 py-2 rounded-full text-sm font-bold">Industrial</span>
-                        <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold">2024</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
+                </CarouselItem>
+              ))}
             </CarouselContent>
             <CarouselPrevious className="left-4" />
             <CarouselNext className="right-4" />

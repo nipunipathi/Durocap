@@ -48,6 +48,8 @@ export interface Project {
   description: string | null;
   image_url: string | null;
   location: string | null;
+  category: string | null;
+  year: number | null;
   completion_date: string | null;
   is_featured: boolean;
   created_at: string;

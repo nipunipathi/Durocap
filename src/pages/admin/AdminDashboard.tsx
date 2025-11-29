@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BarChart3, Package, ShoppingBag, FileText, LayoutDashboard, LogOut, Users, RefreshCw, Mail, Clock } from "lucide-react";
+import { BarChart3, Package, ShoppingBag, FileText, LayoutDashboard, LogOut, Users, RefreshCw, Mail, Clock, FolderKanban } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -346,6 +346,20 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">Add, edit, or remove products from your catalog</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link to="/admin/projects">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <FolderKanban className="w-5 h-5 mr-2" />
+                  Manage Projects
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">Manage portfolio projects and carousel</p>
               </CardContent>
             </Card>
           </Link>

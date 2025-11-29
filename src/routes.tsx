@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
+import AdminProjects from "./pages/admin/AdminProjects";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminClients from "./pages/admin/AdminClients";
 import AdminPages from "./pages/admin/AdminPages";
@@ -108,6 +109,16 @@ const routes: RouteConfig[] = [
     element: (
       <ProtectedAdminRoute>
         <AdminProducts />
+      </ProtectedAdminRoute>
+    ),
+    visible: false,
+  },
+  {
+    name: "Admin Projects",
+    path: "/admin/projects",
+    element: (
+      <ProtectedAdminRoute>
+        <AdminProjects />
       </ProtectedAdminRoute>
     ),
     visible: false,
