@@ -44,8 +44,7 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 
 ### 2.3 User Login Page
 - **Login Form**: Email/username and password input fields
-- **Remember Me**: Checkbox option to save login credentials
-- **Forgot Password**: Link to password recovery process
+- **Remember Me**: Checkbox option to save login credentials\n- **Forgot Password**: Link to password recovery process
 - **Sign Up Link**: Redirect to user registration page for new customers
 - **Google Sign In**: Quick login via OSS Google login method with'Sign in with Google' button displaying Google logo
 - **Security**: Input validation and encrypted password transmission
@@ -85,8 +84,10 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - **Order Notes**: Optional text area for special delivery instructions or comments
 - **Terms and Conditions**: Checkbox to agree to terms before completing purchase
 - **Place Order Button**: Final confirmation button to submit order
+- **I Have Made Payment Button**: After completing payment through QR code or external payment method, user clicks this button to notify admin of payment completion
+- **Payment Confirmation Notification**: When'I Have Made Payment' button is clicked, system sends notification to admin dashboard with order details and payment amount in selected currency, marking order as 'Pending Admin Confirmation'
 - **Security Badges**: Display SSL encryption and secure payment icons for customer trust
-- **Order Confirmation**: After successful payment, display order confirmation page with order number, estimated delivery date, and email confirmation notice
+- **Order Confirmation**: After admin confirms payment, display order confirmation page with order number, estimated delivery date, and email confirmation notice
 - **Currency Display**: All payment amounts shown in user's selected currency (USD or INR)
 
 ### 2.9 Admin Login Page
@@ -98,15 +99,22 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 \n### 2.10 Admin Dashboard
 - **Product Management**: Add, edit, delete, and update product listings with image upload and category assignment
 - **Service Management**: Add, edit, delete, and modify service offerings and descriptions
-- **Order History Management**: View complete order history with filtering options by date, status, and customer\n- **Client Management**: View and manage customer information, track customer orders, and communication history
-- **Business Growth Analytics**: Interactive dashboard displaying business growth metrics through visual graphs and charts, including:\n  - Revenue trends over time (line/bar charts)
+- **Order History Management**: View complete order history with filtering options by date, status, and customer\n- **Payment Confirmation Queue**: Display list of orders with'Pending Admin Confirmation' status, showing order number, customer name, payment amount in original currency, and timestamp
+- **Confirm Payment Action**: Admin reviews payment notification and clicks 'Confirm Payment' button to approve the transaction
+- **Revenue Update**: Upon admin confirmation, order amount is automatically added to total revenue counter and reflected in business growth analytics
+- **Reject Payment Option**: Admin can reject payment if verification fails, triggering notification to customer for payment resubmission
+- **Client Management**: View and manage customer information, track customer orders, and communication history
+- **Business Growth Analytics**: Interactive dashboard displaying business growth metrics through visual graphs and charts, including:\n  - Revenue trends over time (line/bar charts) with real-time updates after payment confirmations
   - Order volume statistics (monthly/quarterly comparisons)
   - Product category performance analysis
   - Customer acquisition trends
+  - Total revenue counter displaying cumulative confirmed payments
+- **Sales Visualization Report**: Visual charts and graphs automatically update to reflect newly confirmed payments, showing revenue breakdown by date, product category, and payment method
 - **Project Portfolio Management**: Add, edit, and delete project showcase images in PNG format with descriptions and metadata
 - **Customer Inquiry Management**: Review and respond to customer inquiries from contact forms
 - **Homepage Carousel Management**: Add, edit, delete, and reorder carousel slides with image upload, overlay text editing, and call-to-action button configuration
-\n### 2.11 Projects Section Enhancement
+
+### 2.11 Projects Section Enhancement
 - Display '100+ Successful Projects' headline with prominent visibility
 - Interactive image gallery showcasing completed roofing projects\n- Hover effects on project images: zoom-in animation (1.1x scale) with smooth transition
 - Project images displayed in grid layout with overlay information on hover
@@ -148,8 +156,9 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Google sign in/up buttons styled with official Google brand colors (white background, blue Google logo, dark text)
 - Currency selector styled as modern toggle switch or dropdown with flag icons
 - Carousel transitions with smooth fade or slide effects (0.5s duration)
-
-### 4.3 Background Images
+- Payment confirmation notifications styled with alert badge icons and highlighted background color
+- Admin confirmation buttons styled with green accent color for approve action and red for reject action
+\n### 4.3 Background Images
 - **AI-Generated Background Images**: Use AI-generated background images throughout the website to create modern, professional, and visually appealing atmosphere
 - **Homepage Hero Section**: AI-generated abstract gradient background with roofing-related geometric patterns, blending teal blue and cyan tones
 - **Homepage Carousel**: High-quality images of completed roofing projects, product showcases, and service highlights
@@ -167,10 +176,11 @@ A professional e-commerce platform specializing in roofing solutions, providing 
 - Sticky navigation bar for easy access across pages with currency selector positioned in top-right corner
 - Visual hierarchy emphasizing product images and key information
 - User page organized in tabbed or sectioned layout: Profile, Cart, and Payment sections clearly separated
-- Admin dashboard with sidebar navigation and main content area featuring data visualization charts and management tables
+- Admin dashboard with sidebar navigation and main content area featuring data visualization charts, payment confirmation queue, and management tables
 - Login and registration pages with centered vertical layout, form card positioned in middle of viewport with AI-generated background image
 - Product list page with sidebar filters and main content area for product grid\n- Cart page with two-column layout: item list on left, order summary on right (stacked on mobile)
-- Payment page with step-by-step form layout, progress indicator at top showing current step
-\n## 5. Reference Images
+- Payment page with step-by-step form layout, progress indicator at top showing current step, and prominent'I Have Made Payment' button after payment method selection
+
+## 5. Reference Images
 - Screenshot2025-11-21 085459.png\n- MainLogo.png
 - HeroImage.jpg

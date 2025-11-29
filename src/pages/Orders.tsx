@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { api } from "@/db/api";
 import type { Order } from "@/types";
 import { useAuth } from "@/components/auth/useAuth";
 import { toast } from "sonner";
+import { CheckCircle, Clock, XCircle } from "lucide-react";
 
 export default function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [submittingPayment, setSubmittingPayment] = useState<string | null>(null);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -33,6 +36,25 @@ export default function Orders() {
     fetchOrders();
   }, [user]);
 
+  const handleSubmitPayment = async (orderId: string) => {
+    setSubmittingPayment(orderId);
+    try {
+      const result = await api.orders.submitPaymentConfirmation(orderId);
+      if (result.success) {
+        toast.success("Payment confirmation submitted! Waiting for admin approval.");
+        const updatedOrders = await api.orders.getByUserId(user!.id);
+        setOrders(updatedOrders);
+      } else {
+        toast.error(result.message || "Failed to submit payment confirmation");
+      }
+    } catch (error) {
+      console.error("Error submitting payment:", error);
+      toast.error("Failed to submit payment confirmation");
+    } finally {
+      setSubmittingPayment(null);
+    }
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "completed":
@@ -43,6 +65,34 @@ export default function Orders() {
         return "bg-destructive text-destructive-foreground";
       default:
         return "bg-muted text-muted-foreground";
+    }
+  };
+
+  const getPaymentStatusBadge = (paymentStatus: string) => {
+    switch (paymentStatus) {
+      case "confirmed":
+        return (
+          <Badge className="bg-secondary text-secondary-foreground">
+            <CheckCircle className="w-3 h-3 mr-1" />
+            Payment Confirmed
+          </Badge>
+        );
+      case "pending_confirmation":
+        return (
+          <Badge className="bg-muted text-muted-foreground">
+            <Clock className="w-3 h-3 mr-1" />
+            Awaiting Confirmation
+          </Badge>
+        );
+      case "payment_failed":
+        return (
+          <Badge className="bg-destructive text-destructive-foreground">
+            <XCircle className="w-3 h-3 mr-1" />
+            Payment Failed
+          </Badge>
+        );
+      default:
+        return null;
     }
   };
 
@@ -90,16 +140,19 @@ export default function Orders() {
           {orders.map((order) => (
             <Card key={order.id}>
               <CardHeader>
-                <div className="flex justify-between items-start">
+                <div className="flex flex-col xl:flex-row xl:justify-between xl:items-start gap-4">
                   <div>
                     <CardTitle className="text-lg">Order #{order.id.slice(0, 8)}</CardTitle>
                     <p className="text-sm text-muted-foreground mt-1">
                       {format(new Date(order.created_at), "PPP")}
                     </p>
                   </div>
-                  <Badge className={getStatusColor(order.status)}>
-                    {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                  </Badge>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className={getStatusColor(order.status)}>
+                      {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    </Badge>
+                    {getPaymentStatusBadge(order.payment_confirmation_status)}
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -121,6 +174,59 @@ export default function Orders() {
                     <span>Total</span>
                     <span>${(order.total_amount / 100).toFixed(2)}</span>
                   </div>
+
+                  {order.payment_confirmation_status === "not_submitted" && order.status === "pending" && (
+                    <div className="border-t pt-4">
+                      <Button
+                        onClick={() => handleSubmitPayment(order.id)}
+                        disabled={submittingPayment === order.id}
+                        className="w-full"
+                      >
+                        {submittingPayment === order.id ? "Submitting..." : "I Have Made Payment"}
+                      </Button>
+                      <p className="text-xs text-muted-foreground mt-2 text-center">
+                        Click this button after completing your payment. Admin will verify and confirm.
+                      </p>
+                    </div>
+                  )}
+
+                  {order.payment_confirmation_status === "pending_confirmation" && (
+                    <div className="border-t pt-4">
+                      <div className="bg-muted p-4 rounded-lg text-center">
+                        <Clock className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                        <p className="font-medium">Payment Confirmation Pending</p>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          Your payment is being reviewed by our admin team.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {order.payment_confirmation_status === "confirmed" && (
+                    <div className="border-t pt-4">
+                      <div className="bg-secondary/10 p-4 rounded-lg text-center">
+                        <CheckCircle className="w-8 h-8 mx-auto mb-2 text-secondary" />
+                        <p className="font-medium">Payment Confirmed</p>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          Confirmed on {order.payment_confirmed_at ? format(new Date(order.payment_confirmed_at), "PPP") : "N/A"}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {order.payment_confirmation_status === "payment_failed" && (
+                    <div className="border-t pt-4">
+                      <div className="bg-destructive/10 p-4 rounded-lg text-center">
+                        <XCircle className="w-8 h-8 mx-auto mb-2 text-destructive" />
+                        <p className="font-medium">Payment Not Confirmed</p>
+                        {order.payment_notes && (
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Note: {order.payment_notes}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

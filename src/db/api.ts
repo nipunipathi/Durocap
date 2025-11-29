@@ -1,5 +1,5 @@
 import { supabase } from "./supabase";
-import type { Product, Service, Project, Order, ContactInquiry, Profile } from "@/types";
+import type { Product, Service, Project, Order, ContactInquiry, Profile, Notification, RevenueStats } from "@/types";
 
 export const api = {
   products: {
@@ -255,6 +255,78 @@ export const api = {
         .from("orders")
         .delete()
         .eq("id", id);
+      if (error) throw error;
+    },
+
+    async submitPaymentConfirmation(orderId: string) {
+      const { data, error } = await supabase.rpc("submit_payment_confirmation", {
+        order_id: orderId,
+      });
+      if (error) throw error;
+      return data;
+    },
+
+    async confirmPayment(orderId: string, notes?: string) {
+      const { data, error } = await supabase.rpc("confirm_payment", {
+        order_id: orderId,
+        notes: notes || null,
+      });
+      if (error) throw error;
+      return data;
+    },
+
+    async rejectPayment(orderId: string, notes?: string) {
+      const { data, error } = await supabase.rpc("reject_payment", {
+        order_id: orderId,
+        notes: notes || null,
+      });
+      if (error) throw error;
+      return data;
+    },
+
+    async getRevenueStats(startDate?: string, endDate?: string) {
+      const { data, error } = await supabase.rpc("get_revenue_stats", {
+        start_date: startDate || null,
+        end_date: endDate || null,
+      });
+      if (error) throw error;
+      return data;
+    },
+  },
+
+  notifications: {
+    async getAll() {
+      const { data, error } = await supabase
+        .from("notifications")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return Array.isArray(data) ? data : [];
+    },
+
+    async getUnread() {
+      const { data, error } = await supabase
+        .from("notifications")
+        .select("*")
+        .eq("is_read", false)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return Array.isArray(data) ? data : [];
+    },
+
+    async markAsRead(id: string) {
+      const { error } = await supabase
+        .from("notifications")
+        .update({ is_read: true })
+        .eq("id", id);
+      if (error) throw error;
+    },
+
+    async markAllAsRead() {
+      const { error } = await supabase
+        .from("notifications")
+        .update({ is_read: true })
+        .eq("is_read", false);
       if (error) throw error;
     },
   },

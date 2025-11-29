@@ -7,6 +7,7 @@ export interface Option {
 
 export type UserRole = 'user' | 'admin';
 export type OrderStatus = 'pending' | 'completed' | 'cancelled' | 'refunded';
+export type PaymentConfirmationStatus = 'not_submitted' | 'pending_confirmation' | 'confirmed' | 'payment_failed';
 
 export interface Profile {
   id: string;
@@ -71,6 +72,11 @@ export interface Order {
   total_amount: number;
   currency: string;
   status: OrderStatus;
+  payment_confirmation_status: PaymentConfirmationStatus;
+  payment_submitted_at: string | null;
+  payment_confirmed_at: string | null;
+  payment_confirmed_by: string | null;
+  payment_notes: string | null;
   stripe_session_id: string | null;
   stripe_payment_intent_id: string | null;
   customer_email: string | null;
@@ -78,6 +84,25 @@ export interface Order {
   completed_at: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface Notification {
+  id: string;
+  type: string;
+  title: string;
+  message: string;
+  related_id: string | null;
+  related_type: string | null;
+  is_read: boolean;
+  created_for_admin: boolean;
+  created_at: string;
+}
+
+export interface RevenueStats {
+  total_revenue: number;
+  confirmed_orders: number;
+  pending_orders: number;
+  average_order_value: number;
 }
 
 export interface ContactInquiry {
