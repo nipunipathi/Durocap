@@ -163,38 +163,37 @@ export default function AdminProjects() {
   }
 
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="container mx-auto py-4 xl:py-8 px-4">
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-3xl font-black">Manage Projects</CardTitle>
-          <Button onClick={() => handleOpenDialog()} className="gap-2">
+        <CardHeader className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
+          <CardTitle className="text-2xl xl:text-3xl font-black">Manage Projects</CardTitle>
+          <Button onClick={() => handleOpenDialog()} className="gap-2 w-full xl:w-auto">
             <Plus className="w-4 h-4" />
             Add Project
           </Button>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 xl:gap-6">{projects.map((project) => (
               <Card key={project.id} className="overflow-hidden">
-                <div className="relative h-48">
+                <div className="relative h-40 xl:h-48">
                   <img
                     src={project.image_url || "https://via.placeholder.com/400x300"}
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />
                   {project.is_featured && (
-                    <div className="absolute top-2 right-2 bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    <div className="absolute top-2 right-2 bg-yellow-500 text-white px-2 xl:px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
                       <Star className="w-3 h-3 fill-current" />
                       Featured
                     </div>
                   )}
                 </div>
-                <CardContent className="p-4">
-                  <h3 className="font-bold text-lg mb-2">{project.title}</h3>
-                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                <CardContent className="p-3 xl:p-4">
+                  <h3 className="font-bold text-base xl:text-lg mb-2 line-clamp-1">{project.title}</h3>
+                  <p className="text-xs xl:text-sm text-gray-600 mb-3 line-clamp-2">
                     {project.description}
                   </p>
-                  <div className="flex gap-2 mb-4 flex-wrap">
+                  <div className="flex gap-2 mb-3 xl:mb-4 flex-wrap">
                     {project.category && (
                       <span className="bg-[#2AA7C6] text-white px-2 py-1 rounded text-xs font-semibold">
                         {project.category}
@@ -217,6 +216,7 @@ export default function AdminProjects() {
                       size="sm"
                       onClick={() => handleToggleFeatured(project)}
                       className="flex-1"
+                      title={project.is_featured ? "Remove from featured" : "Add to featured"}
                     >
                       {project.is_featured ? (
                         <StarOff className="w-4 h-4" />
@@ -229,6 +229,7 @@ export default function AdminProjects() {
                       size="sm"
                       onClick={() => handleOpenDialog(project)}
                       className="flex-1"
+                      title="Edit project"
                     >
                       <Pencil className="w-4 h-4" />
                     </Button>
@@ -237,6 +238,7 @@ export default function AdminProjects() {
                       size="sm"
                       onClick={() => handleDelete(project.id)}
                       className="flex-1"
+                      title="Delete project"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>

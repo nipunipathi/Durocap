@@ -115,67 +115,86 @@ export default function Home() {
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl xl:text-6xl font-black text-[#2C5F7C] mb-6 tracking-tight">
+          <div className="text-center mb-12 xl:mb-20">
+            <h2 className="text-3xl xl:text-6xl font-black text-[#2C5F7C] mb-4 xl:mb-6 tracking-tight">
               Our <span className="text-[#2AA7C6]">Completed Projects</span>
             </h2>
-            <div className="w-32 h-2 bg-gradient-to-r from-[#2C5F7C] to-[#2AA7C6] mx-auto rounded-full mb-6"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+            <div className="w-24 xl:w-32 h-1.5 xl:h-2 bg-gradient-to-r from-[#2C5F7C] to-[#2AA7C6] mx-auto rounded-full mb-4 xl:mb-6"></div>
+            <p className="text-base xl:text-xl text-gray-600 max-w-3xl mx-auto font-medium px-4">
               Explore our portfolio of successful roofing installations across Kerala
             </p>
           </div>
 
-          <Carousel 
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="max-w-6xl mx-auto"
-          >
-            <CarouselContent>
-              {featuredProjects.map((project) => (
-                <CarouselItem key={project.id}>
-                  <div className="px-4">
-                    <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-                      <img 
-                        src={project.image_url || 'https://via.placeholder.com/1200x500'} 
-                        alt={project.title} 
-                        className="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-10 text-white">
-                        <h3 className="text-3xl font-black mb-3">{project.title}</h3>
-                        <p className="text-lg text-gray-200 mb-4">{project.description}</p>
-                        <div className="flex gap-4">
-                          {project.category && (
-                            <span className="bg-[#2AA7C6] px-4 py-2 rounded-full text-sm font-bold">
-                              {project.category}
-                            </span>
-                          )}
-                          {project.year && (
-                            <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold">
-                              {project.year}
-                            </span>
-                          )}
+          {loading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="text-gray-600 text-lg">Loading projects...</div>
+            </div>
+          ) : featuredProjects.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-gray-600 text-lg">No featured projects available yet.</p>
+            </div>
+          ) : (
+            <Carousel 
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="max-w-6xl mx-auto"
+            >
+              <CarouselContent>
+                {featuredProjects.map((project) => (
+                  <CarouselItem key={project.id}>
+                    <div className="px-2 xl:px-4">
+                      <div className="relative rounded-2xl xl:rounded-3xl overflow-hidden shadow-2xl group">
+                        <img 
+                          src={project.image_url || 'https://via.placeholder.com/1200x500'} 
+                          alt={project.title} 
+                          className="w-full h-[280px] xl:h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-4 xl:p-10 text-white">
+                          <h3 className="text-xl xl:text-3xl font-black mb-2 xl:mb-3 line-clamp-2">
+                            {project.title}
+                          </h3>
+                          <p className="text-sm xl:text-lg text-gray-200 mb-3 xl:mb-4 line-clamp-2">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2 xl:gap-4">
+                            {project.category && (
+                              <span className="bg-[#2AA7C6] px-3 xl:px-4 py-1 xl:py-2 rounded-full text-xs xl:text-sm font-bold">
+                                {project.category}
+                              </span>
+                            )}
+                            {project.year && (
+                              <span className="bg-white/20 backdrop-blur-sm px-3 xl:px-4 py-1 xl:py-2 rounded-full text-xs xl:text-sm font-bold">
+                                {project.year}
+                              </span>
+                            )}
+                            {project.location && (
+                              <span className="bg-white/20 backdrop-blur-sm px-3 xl:px-4 py-1 xl:py-2 rounded-full text-xs xl:text-sm font-bold">
+                                {project.location}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-4" />
-            <CarouselNext className="right-4" />
-          </Carousel>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2 xl:left-4 bg-white/90 hover:bg-white border-2 border-[#2AA7C6]" />
+              <CarouselNext className="right-2 xl:right-4 bg-white/90 hover:bg-white border-2 border-[#2AA7C6]" />
+            </Carousel>
+          )}
 
-          <div className="text-center mt-16">
+          <div className="text-center mt-10 xl:mt-16">
             <Link to="/projects">
               <Button 
                 size="lg" 
-                className="bg-[#2AA7C6] hover:bg-[#2597B3] text-white font-black px-12 py-7 text-xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 group"
+                className="bg-[#2AA7C6] hover:bg-[#2597B3] text-white font-black px-8 xl:px-12 py-5 xl:py-7 text-base xl:text-xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 group"
               >
                 View All Projects
-                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                <ArrowRight className="ml-2 xl:ml-3 w-5 xl:w-6 h-5 xl:h-6 group-hover:translate-x-2 transition-transform" />
               </Button>
             </Link>
           </div>
